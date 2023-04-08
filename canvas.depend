@@ -1,0 +1,89 @@
+# depslib dependency file v1.0
+1680801416 source:c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+	"Ponto.h"
+	<vector>
+
+1680799272 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"Vector2.h"
+	"Ponto.h"
+
+1426372440 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\include\gl\glut.h
+	"freeglut_std.h"
+
+1437579942 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426372440 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1680792654 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\vector2.h
+
+1680978579 source:c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\main.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<vector>
+	"gl_canvas2d.h"
+	"Bola.h"
+	"Relogio.h"
+	"botaoManager.h"
+	"painelmanager.h"
+	"figuraManager.h"
+
+1589214882 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\bola.h
+	"gl_canvas2d.h"
+
+1193164156 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\relogio.h
+	"gl_canvas2d.h"
+
+1680137625 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\botao.h
+
+1589218349 source:c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\relogio.cpp
+	"Relogio.h"
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+
+1680978023 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\botaomanager.h
+	<iostream>
+	<vector>
+	<cmath>
+	"gl_canvas2d.h"
+	"figuraManager.h"
+	<functional>
+
+1680974878 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\painelmanager.h
+	"gl_canvas2d.h"
+	"botaoManager.h"
+	<vector>
+
+1680978310 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\figuramanager.h
+	<iostream>
+	<vector>
+	<cmath>
+	"gl_canvas2d.h"
+	"Vector2.h"
+	"Ponto.h"
+
+1680792775 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\ponto.h
+	"gl_canvas2d.h"
+	<vector>
+
