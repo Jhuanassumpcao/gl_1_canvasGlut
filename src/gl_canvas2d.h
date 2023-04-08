@@ -36,7 +36,7 @@ public:
 
     //desenha um poligono CONVEXO. Para um retangulo, deve-se passar 4 vertices
     static void polygon(float vx[], float vy[], int n_elems);
-    static void polygonFill(float vx[], float vy[], int n_elems);
+    static void polygonFill(std::vector<Ponto> pontos);
     static void polygon(std::vector<Ponto> pontos);
 
     //centro e raio do circulo

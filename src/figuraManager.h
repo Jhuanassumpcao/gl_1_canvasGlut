@@ -14,8 +14,7 @@ public:
     std::vector<Ponto> pontos;
     bool isFill = false;
     bool visivel = false;
-    float r,g,b;
-    int color = 0;
+    float r,g,b = 0;
     unsigned int n_vertices = 0;
 
 
@@ -50,10 +49,10 @@ public:
 
 };
 
-class Quadrado : public Figura {
+class Retangulo : public Figura {
 public:
 
-    Quadrado(Ponto ponto, Ponto ponto2){
+    Retangulo(Ponto ponto, Ponto ponto2){
         pontos.push_back(ponto);
         pontos.push_back(ponto2);
     }
@@ -83,9 +82,9 @@ public:
 class Circulo : public Figura {
 public:
 
-    Circulo(Ponto ponto){
+    Circulo(Ponto ponto, Ponto ponto2){
         pontos.push_back(ponto);
-        pontos.push_back(Ponto(450,450));
+        pontos.push_back(ponto2);
     }
 
     void Render() override
@@ -133,6 +132,38 @@ public:
             CV::color(r, g, b);
             CV::polygon(pontos);
             CV::color(0);
+        }
+
+    }
+
+    bool Colidiu(Ponto mouse) override
+    {
+        Ponto p = pontos[0];
+        Ponto q = pontos[1];
+        float numerador = (p.y - q.y) * mouse.x - (p.x - q.x) * mouse.y + p.x * q.y - p.y * q.x;
+        float denominador = (p.y - q.y) * (p.y - q.y) + (p.x - q.x) * (p.x - q.x);
+        return abs(numerador) / sqrt(denominador) < 2;
+    }
+
+};
+
+class Poligono : public Figura {
+public:
+
+    Poligono(Ponto ponto){
+        pontos.push_back(ponto);
+        pontos.push_back(Ponto(600,600));
+    }
+
+
+    void Render() override
+    {
+        if(visivel){
+            if (isFill) {
+                CV::polygonFill(pontos);
+            } else {
+                CV::polygon(pontos);
+            }
         }
 
     }

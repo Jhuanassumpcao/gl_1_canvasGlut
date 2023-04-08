@@ -127,13 +127,11 @@ void CV::polygon(float vx[], float vy[], int elems)
 }
 
 
-void CV::polygonFill(float vx[], float vy[], int elems)
+void CV::polygonFill(std::vector<Ponto> pontos)
 {
-   int cont;
    glBegin(GL_POLYGON);
-      for(cont=0; cont<elems; cont++)
-      {
-         glVertex2d(vx[cont], vy[cont]);
+      for(auto& ponto : pontos){
+         glVertex2d(ponto.x, ponto.y);
       }
    glEnd();
 

@@ -9,7 +9,7 @@
 //
 //  Versao 2.0
 //
-//  Instruções:
+//  Instruï¿½ï¿½es:
 //	  Para alterar a animacao, digite numeros entre 1 e 3
 // *********************************************************************/
 
@@ -68,7 +68,7 @@ void DrawMouseScreenCoords()
 
 //funcao chamada continuamente. Deve-se controlar o que desenhar por meio de variaveis globais
 //Todos os comandos para desenho na canvas devem ser chamados dentro da render().
-//Deve-se manter essa função com poucas linhas de codigo.
+//Deve-se manter essa funï¿½ï¿½o com poucas linhas de codigo.
 void render()
 {
    CV::color(0);
@@ -133,13 +133,18 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
    {
      int fclicada = figuraManager->FiguraClicada(mouse);
      int pclicado = painelManager.PainelClicado(mouseX, mouseY);
-     bool bclicado = botaoManager.BotaoClicado(mouse);
+     int bclicado = botaoManager.BotaoClicado(mouse);
       // botaoQuadrado->callback(mouse);
 
    }
 }
 
 void DrawBotoes() {
+   CV::color(0);
+   Botao* botaoRetangular = new Botao(new Retangulo(Ponto(73,662), Ponto(96, 687)), [](Ponto p) { return new  Retangulo(Ponto(576,247), Ponto(754, 381)); });
+   Botao* botaoCircular = new Botao(new Circulo(Ponto(118,675), Ponto(126, 687)), [](Ponto p) { return new  Circulo(Ponto(576,247), Ponto(754, 381)); });
+   botaoManager.AddBotao(botaoRetangular);
+   botaoManager.AddBotao(botaoCircular);
 
 }
 
@@ -164,12 +169,7 @@ int main(void)
    figuraManager = new FiguraManager();
 
    CV::color(0);
-   Linha linha(Ponto(100,100));
-   Circulo circulo(Ponto(400,400));
-   Quadrado quadrado(Ponto(100,100), Ponto(200,200));
 
-   Botao* botaoQuadrado = new Botao(new Quadrado(Ponto(72,500), Ponto(80, 560)), [](Ponto p) { return new  Quadrado(Ponto(600,600), Ponto(650, 650)); });
-   botaoManager.AddBotao(botaoQuadrado);
 
    //figuraManager->AddFigura(&linha);
   // figuraManager->AddFigura(&circulo);
@@ -179,6 +179,6 @@ int main(void)
    DrawBotoes();
 
 
-   CV::init(&screenWidth, &screenHeight, "Trabalho 1: Jhuan Assumpção");
+   CV::init(&screenWidth, &screenHeight, "Trabalho 1: Jhuan Assumpcao");
    CV::run();
 }
