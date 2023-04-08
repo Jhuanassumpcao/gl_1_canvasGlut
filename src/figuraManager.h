@@ -14,7 +14,9 @@ public:
     std::vector<Ponto> pontos;
     bool isFill = false;
     bool visivel = false;
-    float r,g,b = 0;
+    float r = 0;
+    float g = 0;
+    float b = 0;
     unsigned int n_vertices = 0;
 
 
@@ -42,6 +44,10 @@ public:
     void setVisivel(bool visivel) {
         this->visivel = visivel;
     }
+    std::vector<Ponto> getPontos() const {
+        return pontos;
+    }
+
 
     virtual void Render() = 0;
     virtual bool Colidiu(Ponto mouse) = 0;
@@ -59,7 +65,7 @@ public:
 
     void Render() override
     {
-        CV::color(r, g, b);
+        CV::color(r,g,b);
         if(visivel){
             if (isFill) {
             CV::rectFill(pontos[0], pontos[1]);
@@ -67,8 +73,6 @@ public:
             CV::rect(pontos[0], pontos[1]);
             }
         }
-
-        CV::color(0);
     }
 
     bool Colidiu(Ponto mouse) override
@@ -98,7 +102,6 @@ public:
             }
         }
 
-        CV::color(0);
     }
 
     bool Colidiu(Ponto mouse) override
@@ -131,7 +134,6 @@ public:
         if(visivel){
             CV::color(r, g, b);
             CV::polygon(pontos);
-            CV::color(0);
         }
 
     }
@@ -217,6 +219,14 @@ public:
         figuras[i]->Render();
       }
     }
+
+  }
+  void moveFigura(int i, Ponto mouse, int state){
+    if(ativo[i] && figuras[i]->Colidiu(mouse)){
+        //while(state == 0){
+         figuras[i]->moveArrastando(figuras[i]->getPontos()[0], mouse);
+        //}
+      }
 
   }
 

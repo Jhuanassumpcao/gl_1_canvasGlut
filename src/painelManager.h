@@ -50,6 +50,7 @@ public:
     for (unsigned int i = 0; i < botoes.size(); i++) {
       botoes[i]->render();
     }
+    CV::color(0);
   }
   void AddBotao(Botao* botao) {
     botoes.push_back(botao);

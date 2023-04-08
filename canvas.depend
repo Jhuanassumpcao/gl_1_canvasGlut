@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1680801416 source:c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\gl_canvas2d.cpp
+1680983563 source:c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\gl_canvas2d.cpp
 	"gl_canvas2d.h"
 	<GL/glut.h>
 	"Ponto.h"
@@ -34,7 +34,7 @@
 
 1680792654 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\vector2.h
 
-1680981930 source:c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\main.cpp
+1680987039 source:c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\main.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	<math.h>
@@ -62,7 +62,7 @@
 	<stdio.h>
 	<stdlib.h>
 
-1680980292 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\botaomanager.h
+1680986547 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\botaomanager.h
 	<iostream>
 	<vector>
 	<cmath>
@@ -70,12 +70,12 @@
 	"figuraManager.h"
 	<functional>
 
-1680974878 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\painelmanager.h
+1680985070 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\painelmanager.h
 	"gl_canvas2d.h"
 	"botaoManager.h"
 	<vector>
 
-1680983383 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\figuramanager.h
+1680987071 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\figuramanager.h
 	<iostream>
 	<vector>
 	<cmath>

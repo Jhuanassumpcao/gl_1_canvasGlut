@@ -34,8 +34,6 @@ Relogio *r = NULL;
 BotaoManager botaoManager;
 PainelManager painelManager;
 
-
-
 //variavel global para selecao do que sera exibido na canvas.
 int opcao  = 50;
 int screenWidth = 1366, screenHeight = 705; //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
@@ -71,15 +69,13 @@ void DrawMouseScreenCoords()
 //Deve-se manter essa fun��o com poucas linhas de codigo.
 void render()
 {
-   CV::color(0);
    CV::text(20,500,"Programa Demo Canvas2D");
-   //CV::rect(Ponto(300,300), Ponto(500,500));
    DrawMouseScreenCoords();
 
-   painelManager.Render();
    figuraManager->Render();
+
+   painelManager.Render();
    botaoManager.Render();
-    //botaoQuadrado->render();
 
 
 }
@@ -134,15 +130,18 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
      int fclicada = figuraManager->FiguraClicada(mouse);
      int pclicado = painelManager.PainelClicado(mouseX, mouseY);
      int bclicado = botaoManager.BotaoClicado(mouse);
+     if(fclicada>=0 && state == 0){
+        figuraManager->moveFigura(fclicada, mouse, state);
+     }
       // botaoQuadrado->callback(mouse);
 
    }
 }
 
 void DrawBotoes() {
-   CV::color(0);
+
    Botao* botaoRetangular = new Botao(new Retangulo(Ponto(73,662), Ponto(96, 687)), [](Ponto p) { return new  Retangulo(Ponto(576,247), Ponto(754, 381)); });
-   Botao* botaoCircular = new Botao(new Circulo(Ponto(118,675), Ponto(126, 687)), [](Ponto p) { return new  Circulo(Ponto(576,247), Ponto(754, 381)); });
+   Botao* botaoCircular = new Botao(new Circulo(Ponto(118,675), Ponto(126, 687)), [](Ponto p) { return new  Circulo(Ponto(696,247), Ponto(754, 381)); });
    botaoManager.AddBotao(botaoRetangular);
    botaoManager.AddBotao(botaoCircular);
 
@@ -165,19 +164,11 @@ int main(void)
 {
    b = new Bola();
    r = new Relogio();
-   DrawPainels();
+
    figuraManager = new FiguraManager();
 
-   CV::color(0);
-
-
-   //figuraManager->AddFigura(&linha);
-  // figuraManager->AddFigura(&circulo);
-  // figuraManager->AddFigura(&quadrado);
-
-
+   DrawPainels();
    DrawBotoes();
-
 
    CV::init(&screenWidth, &screenHeight, "Trabalho 1: Jhuan Assumpcao");
    CV::run();

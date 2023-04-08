@@ -18,7 +18,7 @@ public:
     bool BotaoClicado(Ponto p) {
         if (figura->Colidiu(p)) {
             printf("botao clicado");
-            Figura* forma = callback(Ponto(500,500));
+            Figura* forma = callback(p);
             forma->setVisivel(true); // torna a figura visível
             figuraManager->AddFigura(forma);
             return true;
@@ -31,9 +31,6 @@ public:
         figura->Render();
     }
 };
-
-
-
 
 
 class BotaoManager {
