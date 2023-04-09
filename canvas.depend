@@ -34,7 +34,7 @@
 
 1680792654 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\vector2.h
 
-1680987039 source:c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\main.cpp
+1681063360 source:c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\main.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	<math.h>
@@ -75,7 +75,7 @@
 	"botaoManager.h"
 	<vector>
 
-1680987071 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\figuramanager.h
+1681064138 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\figuramanager.h
 	<iostream>
 	<vector>
 	<cmath>
@@ -83,7 +83,7 @@
 	"Vector2.h"
 	"Ponto.h"
 
-1680792775 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\ponto.h
+1681062212 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\ponto.h
 	"gl_canvas2d.h"
 	<vector>
 

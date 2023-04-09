@@ -112,8 +112,8 @@ void keyboardUp(int key)
 {
    printf("\nLiberou: %d" , key);
 }
-
 //funcao para tratamento de mouse: cliques, movimentos e arrastos
+/*
 void mouse(int button, int state, int wheel, int direction, int x, int y)
 {
    mouseX = x; //guarda as coordenadas do mouse para exibir dentro da render()
@@ -136,6 +136,42 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
       // botaoQuadrado->callback(mouse);
 
    }
+}
+*/
+void mouse(int button, int state, int wheel, int direction, int x, int y)
+{
+    mouseX = x;
+    mouseY = y;
+
+    Ponto mouse;
+    mouse.x = mouseX;
+    mouse.y = mouseY;
+
+    printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
+
+    static bool mousePressed = false;
+    static int figuraPressionada = -1;
+
+
+    if (button == 0)
+    {
+        if (state == 0) // botão pressionado
+        {
+            figuraPressionada = figuraManager->FiguraClicada(mouse);
+            int mouseClicado = botaoManager.BotaoClicado(mouse);
+            mousePressed = true;
+        }
+        else if (state == 1) // botão liberado
+        {
+            mousePressed = false;
+        }
+    }
+
+    if (mousePressed && figuraPressionada >= 0)
+    {
+        figuraManager->moveFigura(figuraPressionada, mouse, state);
+    }
+
 }
 
 void DrawBotoes() {

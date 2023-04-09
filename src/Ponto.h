@@ -26,6 +26,11 @@ public:
     float distancia(Ponto p) {
         return sqrt(pow(p.x - x, 2) + pow(p.y - y, 2));
     }
+    Ponto operator - (const Ponto& v)
+   {
+        Ponto aux( x - v.x, y - v.y);
+        return( aux );
+   }
 
 };
 

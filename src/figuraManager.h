@@ -30,6 +30,7 @@ public:
 
     }
 
+
     unsigned int getVertices(){
         return n_vertices;
     }
@@ -185,6 +186,7 @@ public:
 class FiguraManager {
 private:
   std::vector<Figura*> figuras;
+  Figura* figuraSelecionada = nullptr;
   std::vector<bool> ativo;
 public:
   void AddFigura(Figura* figura)
@@ -221,14 +223,19 @@ public:
     }
 
   }
-  void moveFigura(int i, Ponto mouse, int state){
-    if(ativo[i] && figuras[i]->Colidiu(mouse)){
-        //while(state == 0){
-         figuras[i]->moveArrastando(figuras[i]->getPontos()[0], mouse);
-        //}
-      }
+    void moveFigura(int i, Ponto mouse, int state){
+        if(ativo[i] && figuras[i]->Colidiu(mouse)){
+            // Calcular o centro do retângulo
+            Ponto centro;
+            centro.x = (figuras[i]->getPontos()[0].x + figuras[i]->getPontos()[1].x) / 2;
+            centro.y = (figuras[i]->getPontos()[0].y + figuras[i]->getPontos()[1].y) / 2;
 
-  }
+            // Usar o centro como ponto de referência na função moveArrastando()
+            figuras[i]->moveArrastando(centro, mouse);
+        }
+    }
+
+
 
 };
 
