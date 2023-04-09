@@ -124,9 +124,9 @@ public:
 class Linha : public Figura {
 public:
 
-    Linha(Ponto ponto){
+    Linha(Ponto ponto, Ponto ponto2){
         pontos.push_back(ponto);
-        pontos.push_back(Ponto(600,600));
+        pontos.push_back(ponto2);
     }
 
 
@@ -153,9 +153,10 @@ public:
 class Poligono : public Figura {
 public:
 
-    Poligono(Ponto ponto){
+    Poligono(Ponto ponto, Ponto ponto2, Ponto ponto3){
         pontos.push_back(ponto);
-        pontos.push_back(Ponto(600,600));
+        pontos.push_back(ponto2);
+        pontos.push_back(ponto3);
     }
 
 
@@ -173,11 +174,16 @@ public:
 
     bool Colidiu(Ponto mouse) override
     {
-        Ponto p = pontos[0];
-        Ponto q = pontos[1];
-        float numerador = (p.y - q.y) * mouse.x - (p.x - q.x) * mouse.y + p.x * q.y - p.y * q.x;
-        float denominador = (p.y - q.y) * (p.y - q.y) + (p.x - q.x) * (p.x - q.x);
-        return abs(numerador) / sqrt(denominador) < 2;
+        // Calcula as coordenadas baricêntricas do ponto em relação aos vértices do triângulo
+        float u = ((pontos[1].y - pontos[2].y) * (mouse.x - pontos[2].x) + (pontos[2].x - pontos[1].x) * (mouse.y - pontos[2].y)) /
+                 ((pontos[1].y - pontos[2].y) * (pontos[0].x - pontos[2].x) + (pontos[2].x - pontos[1].x) * (pontos[0].y - pontos[2].y));
+        float v = ((pontos[2].y - pontos[0].y) * (mouse.x - pontos[2].x) + (pontos[0].x - pontos[2].x) * (mouse.y - pontos[2].y)) /
+                 ((pontos[1].y - pontos[2].y) * (pontos[0].x - pontos[2].x) + (pontos[2].x - pontos[1].x) * (pontos[0].y - pontos[2].y));
+        float w = 1.0f - u - v;
+
+        // Verifica se as coordenadas estão entre 0 e 1
+        return u >= 0 && u <= 1 && v >= 0 && v <= 1 && w >= 0 && w <= 1;
+
     }
 
 };
@@ -227,8 +233,8 @@ public:
         if(ativo[i] && figuras[i]->Colidiu(mouse)){
             // Calcular o centro do retângulo
             Ponto centro;
-            centro.x = (figuras[i]->getPontos()[0].x + figuras[i]->getPontos()[1].x) / 2;
-            centro.y = (figuras[i]->getPontos()[0].y + figuras[i]->getPontos()[1].y) / 2;
+            centro.x = (figuras[i]->getPontos()[0].x + figuras[i]->getPontos()[1].x + figuras[i]->getPontos()[2].x) / 3;
+            centro.y = (figuras[i]->getPontos()[0].y + figuras[i]->getPontos()[1].y+ figuras[i]->getPontos()[2].y) / 3;
 
             // Usar o centro como ponto de referência na função moveArrastando()
             figuras[i]->moveArrastando(centro, mouse);

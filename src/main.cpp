@@ -39,22 +39,6 @@ int opcao  = 50;
 int screenWidth = 1366, screenHeight = 705; //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
 int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da render().
 
-void DesenhaSenoide()
-{
-   float x=0, y;
-   CV::color(1);
-   CV::translate(20, 200); //desenha o objeto a partir da coordenada (200, 200)
-   for(float i=0; i < 68; i+=0.001)
-   {
-      y = sin(i)*50;
-      CV::point(x, y);
-      x+=0.01;
-   }
-   CV::translate(0, 0);
-}
-
-
-
 void DrawMouseScreenCoords()
 {
     char str[100];
@@ -178,6 +162,11 @@ void DrawBotoes() {
 
    Botao* botaoRetangular = new Botao(new Retangulo(Ponto(73,662), Ponto(96, 687)), [](Ponto p) { return new  Retangulo(Ponto(576,247), Ponto(754, 381)); });
    Botao* botaoCircular = new Botao(new Circulo(Ponto(118,675), Ponto(126, 687)), [](Ponto p) { return new  Circulo(Ponto(696,247), Ponto(754, 381)); });
+   Botao* botaoLinha = new Botao(new Linha(Ponto(138,675), Ponto(150, 687)), [](Ponto p) { return new  Linha(Ponto(696,247), Ponto(754, 381)); });
+   Botao* botaoPoligono = new Botao(new Poligono(Ponto(138,675), Ponto(150, 687), Ponto(100, 697)), [](Ponto p) { return new  Poligono(Ponto(696,247), Ponto(754, 381), Ponto(650, 400)); });
+
+   botaoManager.AddBotao(botaoPoligono);
+   botaoManager.AddBotao(botaoLinha);
    botaoManager.AddBotao(botaoRetangular);
    botaoManager.AddBotao(botaoCircular);
 
