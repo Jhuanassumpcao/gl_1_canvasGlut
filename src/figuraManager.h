@@ -153,38 +153,33 @@ public:
 class Poligono : public Figura {
 public:
 
-    Poligono(Ponto ponto, Ponto ponto2, Ponto ponto3){
-        pontos.push_back(ponto);
-        pontos.push_back(ponto2);
-        pontos.push_back(ponto3);
+    Poligono(std::vector<Ponto> pontos) {
+        this->pontos = pontos;
     }
 
-
-    void Render() override
-    {
-        if(visivel){
+    void Render() override {
+        if(visivel) {
             if (isFill) {
                 CV::polygonFill(pontos);
             } else {
                 CV::polygon(pontos);
             }
         }
-
     }
 
-    bool Colidiu(Ponto mouse) override
+    bool Colidiu(Ponto mouse)
     {
-        // Calcula as coordenadas baricêntricas do ponto em relação aos vértices do triângulo
-        float u = ((pontos[1].y - pontos[2].y) * (mouse.x - pontos[2].x) + (pontos[2].x - pontos[1].x) * (mouse.y - pontos[2].y)) /
-                 ((pontos[1].y - pontos[2].y) * (pontos[0].x - pontos[2].x) + (pontos[2].x - pontos[1].x) * (pontos[0].y - pontos[2].y));
-        float v = ((pontos[2].y - pontos[0].y) * (mouse.x - pontos[2].x) + (pontos[0].x - pontos[2].x) * (mouse.y - pontos[2].y)) /
-                 ((pontos[1].y - pontos[2].y) * (pontos[0].x - pontos[2].x) + (pontos[2].x - pontos[1].x) * (pontos[0].y - pontos[2].y));
-        float w = 1.0f - u - v;
-
-        // Verifica se as coordenadas estão entre 0 e 1
-        return u >= 0 && u <= 1 && v >= 0 && v <= 1 && w >= 0 && w <= 1;
-
+        int n = pontos.size();
+        int i, j;
+        bool colidiu = false;
+        for (i = 0, j = n - 1; i < n; j = i++) {
+            if (((pontos[i].y > mouse.y) != (pontos[j].y > mouse.y)) &&
+                (mouse.x < (pontos[j].x - pontos[i].x) * (mouse.y - pontos[i].y) / (pontos[j].y - pontos[i].y) + pontos[i].x))
+                colidiu = !colidiu;
+        }
+        return colidiu;
     }
+
 
 };
 
@@ -229,17 +224,22 @@ public:
     }
 
   }
-    void moveFigura(int i, Ponto mouse, int state){
+     void moveFigura(int i, Ponto mouse, int state){
         if(ativo[i] && figuras[i]->Colidiu(mouse)){
-            // Calcular o centro do retângulo
+            // Calcular o centro do polígono
             Ponto centro;
-            centro.x = (figuras[i]->getPontos()[0].x + figuras[i]->getPontos()[1].x + figuras[i]->getPontos()[2].x) / 3;
-            centro.y = (figuras[i]->getPontos()[0].y + figuras[i]->getPontos()[1].y+ figuras[i]->getPontos()[2].y) / 3;
+            for(unsigned int j = 0; j < figuras[i]->getPontos().size(); j++){
+                centro.x += figuras[i]->getPontos()[j].x;
+                centro.y += figuras[i]->getPontos()[j].y;
+            }
+            centro.x /= figuras[i]->getPontos().size();
+            centro.y /= figuras[i]->getPontos().size();
 
             // Usar o centro como ponto de referência na função moveArrastando()
             figuras[i]->moveArrastando(centro, mouse);
         }
     }
+
 
 
 

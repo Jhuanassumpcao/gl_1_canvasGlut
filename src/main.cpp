@@ -142,7 +142,7 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
         if (state == 0) // botão pressionado
         {
             figuraPressionada = figuraManager->FiguraClicada(mouse);
-            int mouseClicado = botaoManager.BotaoClicado(mouse);
+            botaoManager.BotaoClicado(mouse);
             mousePressed = true;
         }
         else if (state == 1) // botão liberado
@@ -162,8 +162,8 @@ void DrawBotoes() {
 
    Botao* botaoRetangular = new Botao(new Retangulo(Ponto(73,662), Ponto(96, 687)), [](Ponto p) { return new  Retangulo(Ponto(576,247), Ponto(754, 381)); });
    Botao* botaoCircular = new Botao(new Circulo(Ponto(118,675), Ponto(126, 687)), [](Ponto p) { return new  Circulo(Ponto(696,247), Ponto(754, 381)); });
-   Botao* botaoLinha = new Botao(new Linha(Ponto(138,675), Ponto(150, 687)), [](Ponto p) { return new  Linha(Ponto(696,247), Ponto(754, 381)); });
-   Botao* botaoPoligono = new Botao(new Poligono(Ponto(138,675), Ponto(150, 687), Ponto(100, 697)), [](Ponto p) { return new  Poligono(Ponto(696,247), Ponto(754, 381), Ponto(650, 400)); });
+   Botao* botaoLinha = new Botao(new Linha(Ponto(139,662), Ponto(161, 687)), [](Ponto p) { return new  Linha(Ponto(696,247), Ponto(754, 381)); });
+   Botao* botaoPoligono = new Botao(new Poligono({Ponto(167,662), Ponto(180, 687), Ponto(190, 662)}), [](Ponto p) { return new  Poligono({Ponto(576,247), Ponto(660, 381), Ponto(754, 247)}); });
 
    botaoManager.AddBotao(botaoPoligono);
    botaoManager.AddBotao(botaoLinha);
