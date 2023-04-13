@@ -39,6 +39,11 @@ int opcao  = 50;
 int screenWidth = 1366, screenHeight = 700; //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
 int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da render().
 
+int xPainelFigs = screenWidth/20;
+int yPainelFigs = screenHeight - 8;
+int largPainelFigs = (screenWidth/ 3) - 87;
+int altPainelFigs = screenHeight - 110;
+
 void DrawMouseScreenCoords()
 {
     char str[100];
@@ -57,12 +62,28 @@ void render()
    DrawMouseScreenCoords();
 
    figuraManager->Render();
-   CV::color(0.85,0.85,0.85);
-   CV::rectFill(0, screenHeight,screenWidth,  screenHeight - 120);
-   //int screenWidth = 1366, screenHeight = 700;
-   //Painel TopPainel(0, screenHeight - 142, screenWidth, screenHeight / 3,0.85,0.85,0.85);
-   CV::color(0.93,0.93,0.93);
-   CV::rectFill(screenWidth/20 , screenHeight - 8,(screenWidth/ 3) - 87,  screenHeight - 110);
+  // Desenha o retângulo cinza escuro na parte inferior da tela
+    CV::color(0.85, 0.85, 0.85);
+    CV::rectFill(0, screenHeight, screenWidth, screenHeight - 120);
+
+    // Define as dimensões e a posição do painel Color1Painel
+    float xPainel1 = 415.0 / 1366.0 * screenWidth;
+    float yPainel1 = (screenHeight - 120.0) - (592.0 / 700.0 * screenHeight);
+    float largPainel1 = 60.0 / 1366.0 * screenWidth;
+    float altPainel1 = 100.0 / 700.0 * screenHeight;
+    Painel Color1Painel(xPainel1, yPainel1, largPainel1, altPainel1, 0.93, 0.93, 0.93);
+
+    // Define as dimensões e a posição do painel ColorPainel
+    float xPainel2 = 500.0 / 1366.0 * screenWidth;
+    float yPainel2 = (screenHeight - 120.0) - (592.0 / 700.0 * screenHeight);
+    float largPainel2 = 300.0 / 1366.0 * screenWidth;
+    float altPainel2 = 100.0 / 700.0 * screenHeight;
+    Painel ColorPainel(xPainel2, yPainel2, largPainel2, altPainel2, 0.93, 0.93, 0.93);
+
+    // Desenha os painéis
+    CV::color(0.93, 0.93, 0.93);
+    CV::rectFill(xPainel1, yPainel1, largPainel1, altPainel1);
+    CV::rectFill(xPainel2, yPainel2, largPainel2, altPainel2);
 
 
    painelManager.Render();
@@ -183,13 +204,12 @@ void DrawBotoes() {
 
 void DrawPainels() {
    //Painel FormasPainel(68, 592, 300, 100,0.93,0.93,0.93);
-   Painel Color1Painel(415, 592, 60, 100,0.93,0.93,0.93);
-   Painel ColorPainel(500, 592, 300, 100,0.93,0.93,0.93);
+
 
    //painelManager.AddPainel(TopPainel);
  //  painelManager.AddPainel(FormasPainel);
-   painelManager.AddPainel(Color1Painel);
-   painelManager.AddPainel(ColorPainel);
+   //painelManager.AddPainel(Color1Painel);
+   //painelManager.AddPainel(ColorPainel);
 
 }
 
