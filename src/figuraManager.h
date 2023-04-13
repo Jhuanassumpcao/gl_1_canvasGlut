@@ -49,7 +49,6 @@ public:
         return pontos;
     }
 
-
     virtual void Render() = 0;
     virtual bool Colidiu(Ponto mouse) = 0;
 
@@ -124,9 +123,12 @@ public:
 class Linha : public Figura {
 public:
 
-    Linha(Ponto ponto, Ponto ponto2){
+    Linha(Ponto ponto){
         pontos.push_back(ponto);
-        pontos.push_back(ponto2);
+        Ponto novoPonto;
+        novoPonto.x = ponto.x + 25;
+        novoPonto.y = ponto.y + 25;
+        pontos.push_back(novoPonto);
     }
 
 
@@ -237,6 +239,19 @@ public:
 
             // Usar o centro como ponto de referência na função moveArrastando()
             figuras[i]->moveArrastando(centro, mouse);
+        }
+    }
+    void aumentaTamanho(int i, float fator) {
+        for(unsigned int j = 0; j < figuras[i]->getPontos().size(); j++){
+            figuras[i]->getPontos()[j].x *= fator;
+            figuras[i]->getPontos()[j].y *= fator;
+        }
+    }
+
+    void diminuiTamanho(int i, float fator) {
+        for(unsigned int j = 0; j < figuras[i]->getPontos().size(); j++){
+            figuras[i]->getPontos()[j].x /= fator;
+            figuras[i]->getPontos()[j].y /= fator;
         }
     }
 

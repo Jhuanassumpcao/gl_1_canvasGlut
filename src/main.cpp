@@ -36,7 +36,7 @@ PainelManager painelManager;
 
 //variavel global para selecao do que sera exibido na canvas.
 int opcao  = 50;
-int screenWidth = 1366, screenHeight = 705; //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
+int screenWidth = 1366, screenHeight = 700; //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
 int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da render().
 
 void DrawMouseScreenCoords()
@@ -57,6 +57,13 @@ void render()
    DrawMouseScreenCoords();
 
    figuraManager->Render();
+   CV::color(0.85,0.85,0.85);
+   CV::rectFill(0, screenHeight,screenWidth,  screenHeight - 120);
+   //int screenWidth = 1366, screenHeight = 700;
+   //Painel TopPainel(0, screenHeight - 142, screenWidth, screenHeight / 3,0.85,0.85,0.85);
+   CV::color(0.93,0.93,0.93);
+   CV::rectFill(screenWidth/20 , screenHeight - 8,(screenWidth/ 3) - 87,  screenHeight - 110);
+
 
    painelManager.Render();
    botaoManager.Render();
@@ -136,7 +143,6 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
     static bool mousePressed = false;
     static int figuraPressionada = -1;
 
-
     if (button == 0)
     {
         if (state == 0) // botão pressionado
@@ -158,12 +164,15 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
 }
 
+
 void DrawBotoes() {
 
    Botao* botaoRetangular = new Botao(new Retangulo(Ponto(73,662), Ponto(96, 687)), [](Ponto p) { return new  Retangulo(Ponto(576,247), Ponto(754, 381)); });
    Botao* botaoCircular = new Botao(new Circulo(Ponto(118,675), Ponto(126, 687)), [](Ponto p) { return new  Circulo(Ponto(696,247), Ponto(754, 381)); });
-   Botao* botaoLinha = new Botao(new Linha(Ponto(139,662), Ponto(161, 687)), [](Ponto p) { return new  Linha(Ponto(696,247), Ponto(754, 381)); });
+   Botao* botaoLinha = new Botao(new Linha(Ponto(139,662)), [](Ponto p) { return new  Linha(Ponto(696,247)); });
    Botao* botaoPoligono = new Botao(new Poligono({Ponto(167,662), Ponto(180, 687), Ponto(190, 662)}), [](Ponto p) { return new  Poligono({Ponto(576,247), Ponto(660, 381), Ponto(754, 247)}); });
+
+
 
    botaoManager.AddBotao(botaoPoligono);
    botaoManager.AddBotao(botaoLinha);
@@ -173,16 +182,15 @@ void DrawBotoes() {
 }
 
 void DrawPainels() {
-
-   Painel TopPainel(0, 580, 1366, 130,0.85,0.85,0.85);
-   Painel FormasPainel(68, 592, 300, 100,0.93,0.93,0.93);
+   //Painel FormasPainel(68, 592, 300, 100,0.93,0.93,0.93);
    Painel Color1Painel(415, 592, 60, 100,0.93,0.93,0.93);
    Painel ColorPainel(500, 592, 300, 100,0.93,0.93,0.93);
 
-   painelManager.AddPainel(TopPainel);
-   painelManager.AddPainel(FormasPainel);
+   //painelManager.AddPainel(TopPainel);
+ //  painelManager.AddPainel(FormasPainel);
    painelManager.AddPainel(Color1Painel);
    painelManager.AddPainel(ColorPainel);
+
 }
 
 int main(void)

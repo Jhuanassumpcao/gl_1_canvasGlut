@@ -31,6 +31,11 @@ public:
         Ponto aux( x - v.x, y - v.y);
         return( aux );
    }
+   Ponto operator + (const Ponto& v)
+   {
+       Ponto aux( x + v.x, y + v.y);
+       return( aux );
+   }
 
 };
 
