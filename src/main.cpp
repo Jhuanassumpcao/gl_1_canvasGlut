@@ -39,10 +39,10 @@ int opcao  = 50;
 int screenWidth = 1366, screenHeight = 700; //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
 int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da render().
 
-int xPainelFigs = screenWidth/20;
-int yPainelFigs = screenHeight - 8;
-int largPainelFigs = (screenWidth/ 3) - 87;
-int altPainelFigs = screenHeight - 110;
+Painel TopPainel(0, screenHeight, screenWidth, screenHeight - 120,0.93,0.93,0.93);
+Painel FormasPainel(screenWidth / 20, screenHeight -  8, (screenWidth / 4) - 30, screenHeight - 110,0.85,0.85,0.85);
+Painel ColorPainel((screenWidth / 4)- 3, screenHeight -  8, (screenWidth / 3) - 30, screenHeight - 110,0.93,0.93,0.93);
+Painel Color1Painel((screenWidth / 3)- 3, screenHeight -  8, (screenWidth / 2) , screenHeight - 110,0.93,0.93,0.93);
 
 void DrawMouseScreenCoords()
 {
@@ -62,28 +62,14 @@ void render()
    DrawMouseScreenCoords();
 
    figuraManager->Render();
-  // Desenha o retângulo cinza escuro na parte inferior da tela
-    CV::color(0.85, 0.85, 0.85);
-    CV::rectFill(0, screenHeight, screenWidth, screenHeight - 120);
 
-    // Define as dimensões e a posição do painel Color1Painel
-    float xPainel1 = 415.0 / 1366.0 * screenWidth;
-    float yPainel1 = (screenHeight - 120.0) - (592.0 / 700.0 * screenHeight);
-    float largPainel1 = 60.0 / 1366.0 * screenWidth;
-    float altPainel1 = 100.0 / 700.0 * screenHeight;
-    Painel Color1Painel(xPainel1, yPainel1, largPainel1, altPainel1, 0.93, 0.93, 0.93);
+   painelManager.AtualizaPosicao(0, 0, screenHeight, screenWidth, screenHeight - 120);
+   painelManager.AtualizaPosicao(1,screenWidth / 20, screenHeight -  8, (screenWidth / 4) - 30, screenHeight - 110);
+   painelManager.AtualizaPosicao(2,(screenWidth / 4)- 3, screenHeight -  8, (screenWidth / 3) - 30, screenHeight - 110);
+   painelManager.AtualizaPosicao(3,(screenWidth / 3)- 3, screenHeight -  8, (screenWidth / 2) , screenHeight - 110);
 
-    // Define as dimensões e a posição do painel ColorPainel
-    float xPainel2 = 500.0 / 1366.0 * screenWidth;
-    float yPainel2 = (screenHeight - 120.0) - (592.0 / 700.0 * screenHeight);
-    float largPainel2 = 300.0 / 1366.0 * screenWidth;
-    float altPainel2 = 100.0 / 700.0 * screenHeight;
-    Painel ColorPainel(xPainel2, yPainel2, largPainel2, altPainel2, 0.93, 0.93, 0.93);
 
-    // Desenha os painéis
-    CV::color(0.93, 0.93, 0.93);
-    CV::rectFill(xPainel1, yPainel1, largPainel1, altPainel1);
-    CV::rectFill(xPainel2, yPainel2, largPainel2, altPainel2);
+
 
 
    painelManager.Render();
@@ -125,31 +111,7 @@ void keyboardUp(int key)
    printf("\nLiberou: %d" , key);
 }
 //funcao para tratamento de mouse: cliques, movimentos e arrastos
-/*
-void mouse(int button, int state, int wheel, int direction, int x, int y)
-{
-   mouseX = x; //guarda as coordenadas do mouse para exibir dentro da render()
-   mouseY = y;
 
-   Ponto mouse;
-   mouse.x = mouseX;
-   mouse.y = mouseY;
-
-   printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
-
-   if( state == 0 ) //clicou
-   {
-     int fclicada = figuraManager->FiguraClicada(mouse);
-     int pclicado = painelManager.PainelClicado(mouseX, mouseY);
-     int bclicado = botaoManager.BotaoClicado(mouse);
-     if(fclicada>=0 && state == 0){
-        figuraManager->moveFigura(fclicada, mouse, state);
-     }
-      // botaoQuadrado->callback(mouse);
-
-   }
-}
-*/
 void mouse(int button, int state, int wheel, int direction, int x, int y)
 {
     mouseX = x;
@@ -183,6 +145,7 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
         figuraManager->moveFigura(figuraPressionada, mouse, state);
     }
 
+
 }
 
 
@@ -191,7 +154,7 @@ void DrawBotoes() {
    Botao* botaoRetangular = new Botao(new Retangulo(Ponto(73,662), Ponto(96, 687)), [](Ponto p) { return new  Retangulo(Ponto(576,247), Ponto(754, 381)); });
    Botao* botaoCircular = new Botao(new Circulo(Ponto(118,675), Ponto(126, 687)), [](Ponto p) { return new  Circulo(Ponto(696,247), Ponto(754, 381)); });
    Botao* botaoLinha = new Botao(new Linha(Ponto(139,662)), [](Ponto p) { return new  Linha(Ponto(696,247)); });
-   Botao* botaoPoligono = new Botao(new Poligono({Ponto(167,662), Ponto(180, 687), Ponto(190, 662)}), [](Ponto p) { return new  Poligono({Ponto(576,247), Ponto(660, 381), Ponto(754, 247)}); });
+   Botao* botaoPoligono = new Botao(new Poligono(Ponto(183,675), 15, 3), [](Ponto p) { return new  Poligono(Ponto(576,247), 60, 3); });
 
 
 
@@ -206,10 +169,11 @@ void DrawPainels() {
    //Painel FormasPainel(68, 592, 300, 100,0.93,0.93,0.93);
 
 
-   //painelManager.AddPainel(TopPainel);
- //  painelManager.AddPainel(FormasPainel);
-   //painelManager.AddPainel(Color1Painel);
-   //painelManager.AddPainel(ColorPainel);
+     painelManager.AddPainel(FormasPainel);
+     painelManager.AddPainel(TopPainel);
+     painelManager.AddPainel(ColorPainel);
+     painelManager.AddPainel(Color1Painel);
+
 
 }
 

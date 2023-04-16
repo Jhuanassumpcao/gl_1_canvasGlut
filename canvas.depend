@@ -87,3 +87,175 @@
 	"gl_canvas2d.h"
 	<vector>
 
+1681487715 source:c:\users\stars\desktop\cg\gl_1_canvasglut\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+	"Ponto.h"
+	<vector>
+
+1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"Vector2.h"
+	"Ponto.h"
+
+1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\include\gl\glut.h
+	"freeglut_std.h"
+
+1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\vector2.h
+
+1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\ponto.h
+	"gl_canvas2d.h"
+	<vector>
+
+1681487715 source:c:\users\stars\desktop\cg\gl_1_canvasglut\src\main.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<vector>
+	"gl_canvas2d.h"
+	"Bola.h"
+	"Relogio.h"
+	"botaoManager.h"
+	"painelmanager.h"
+	"figuraManager.h"
+
+1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\bola.h
+	"gl_canvas2d.h"
+
+1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\relogio.h
+	"gl_canvas2d.h"
+
+1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\botaomanager.h
+	<iostream>
+	<vector>
+	<cmath>
+	"gl_canvas2d.h"
+	"figuraManager.h"
+	<functional>
+
+1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\figuramanager.h
+	<iostream>
+	<vector>
+	<cmath>
+	"gl_canvas2d.h"
+	"Vector2.h"
+	"Ponto.h"
+
+1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\painelmanager.h
+	"gl_canvas2d.h"
+	"botaoManager.h"
+	<vector>
+
+1681487715 source:c:\users\stars\desktop\cg\gl_1_canvasglut\src\relogio.cpp
+	"Relogio.h"
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+
+1681487715 source:c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+	"Ponto.h"
+	<vector>
+
+1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"Vector2.h"
+	"Ponto.h"
+
+1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\include\gl\glut.h
+	"freeglut_std.h"
+
+1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\vector2.h
+
+1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\ponto.h
+	"gl_canvas2d.h"
+	<vector>
+
+1681670925 source:c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\main.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<vector>
+	"gl_canvas2d.h"
+	"Bola.h"
+	"Relogio.h"
+	"botaoManager.h"
+	"painelmanager.h"
+	"figuraManager.h"
+
+1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\bola.h
+	"gl_canvas2d.h"
+
+1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\relogio.h
+	"gl_canvas2d.h"
+
+1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\botaomanager.h
+	<iostream>
+	<vector>
+	<cmath>
+	"gl_canvas2d.h"
+	"figuraManager.h"
+	<functional>
+
+1681671278 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\figuramanager.h
+	<iostream>
+	<vector>
+	<cmath>
+	"gl_canvas2d.h"
+	"Vector2.h"
+	"Ponto.h"
+
+1681667056 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\painelmanager.h
+	"gl_canvas2d.h"
+	"botaoManager.h"
+	<vector>
+
+1681487715 source:c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\relogio.cpp
+	"Relogio.h"
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+

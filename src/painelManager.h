@@ -46,15 +46,19 @@ public:
     if (!visivel) return;
 
     CV::color(r,g,b);
-    CV::rectFill(x, y, x + largura, y + altura);
-    for (unsigned int i = 0; i < botoes.size(); i++) {
-      botoes[i]->render();
-    }
+    CV::rectFill(x, y, largura , altura);
     CV::color(0);
   }
   void AddBotao(Botao* botao) {
     botoes.push_back(botao);
   }
+  void SetPosicao(float _x, float _y, float _largura, float _altura) {
+    x = _x;
+    y = _y;
+    largura = _largura;
+    altura = _altura;
+}
+
 };
 
 class PainelManager {
@@ -108,6 +112,10 @@ public:
 
     }
   }
+  void AtualizaPosicao(int index, float x, float y, float largura, float altura) {
+      paineis[index].SetPosicao(x, y, largura, altura);
+  }
+
 
 };
 

@@ -17,7 +17,8 @@ public:
     float r = 0;
     float g = 0;
     float b = 0;
-    unsigned int n_vertices = 0;
+    unsigned int num_lados = 0;
+    int raio;
 
 
     void moveArrastando(Ponto ponto, Ponto mouse){
@@ -30,9 +31,16 @@ public:
 
     }
 
+    void aumentaTamanho(float fator) {
+        for (unsigned int i = 0; i < pontos.size(); i++) {
+            pontos[i].x *= fator;
+            pontos[i].y *= fator;
+        }
+    }
 
-    unsigned int getVertices(){
-        return n_vertices;
+
+    unsigned int getLados(){
+        return num_lados;
     }
 
     virtual void add_point(Ponto ponto){
@@ -47,6 +55,9 @@ public:
     }
     std::vector<Ponto> getPontos() const {
         return pontos;
+    }
+    void setRaio(int _raio){
+        raio = _raio;
     }
 
     virtual void Render() = 0;
@@ -155,8 +166,16 @@ public:
 class Poligono : public Figura {
 public:
 
-    Poligono(std::vector<Ponto> pontos) {
-        this->pontos = pontos;
+    Poligono(Ponto centro, float raio, int num_lados) {
+        // calcular o ângulo entre cada vértice
+        float angulo = (2.0 * PI) / num_lados;
+
+        // gerar os vértices em torno do ponto central
+        for (int i = 0; i < num_lados; i++) {
+            float x = centro.x + raio * cos(i * angulo);
+            float y = centro.y + raio * sin(i * angulo);
+            pontos.push_back(Ponto(x, y));
+        }
     }
 
     void Render() override {
@@ -241,12 +260,7 @@ public:
             figuras[i]->moveArrastando(centro, mouse);
         }
     }
-    void aumentaTamanho(int i, float fator) {
-        for(unsigned int j = 0; j < figuras[i]->getPontos().size(); j++){
-            figuras[i]->getPontos()[j].x *= fator;
-            figuras[i]->getPontos()[j].y *= fator;
-        }
-    }
+
 
     void diminuiTamanho(int i, float fator) {
         for(unsigned int j = 0; j < figuras[i]->getPontos().size(); j++){
