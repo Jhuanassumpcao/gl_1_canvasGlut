@@ -44,6 +44,11 @@ Painel FormasPainel(screenWidth / 20, screenHeight -  8, (screenWidth / 4) - 30,
 Painel ColorPainel((screenWidth / 4)- 3, screenHeight -  8, (screenWidth / 3) - 30, screenHeight - 110,0.93,0.93,0.93);
 Painel Color1Painel((screenWidth / 3)- 3, screenHeight -  8, (screenWidth / 2) , screenHeight - 110,0.93,0.93,0.93);
 
+int InicioXPainel = (screenWidth / 17) - 2;
+int InicioYPainel = screenHeight - 110;
+
+static int figuraPressionada = -1;
+
 void DrawMouseScreenCoords()
 {
     char str[100];
@@ -60,6 +65,7 @@ void render()
 {
    CV::text(20,500,"Programa Demo Canvas2D");
    DrawMouseScreenCoords();
+   InicioYPainel = screenHeight -  100;
 
    figuraManager->Render();
 
@@ -95,12 +101,21 @@ void keyboard(int key)
 
 	  //seta para a esquerda
       case 200:
-         b->move(-10);
+         if(figuraPressionada >= 0){
+            figuraManager->aumentaTamanho(figuraPressionada);
+         }
+
+	  break;
+
+	  case 202:
+	      if(figuraPressionada >= 0){
+            figuraManager->dimunuiTamanho(figuraPressionada);
+	      }
 	  break;
 
 	  //seta para a direita
-	  case 202:
-         b->move(10);
+	  case 127:
+          figuraManager->RemoveFigura(figuraPressionada);
 	  break;
    }
 }
@@ -124,7 +139,8 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
     printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 
     static bool mousePressed = false;
-    static int figuraPressionada = -1;
+    static bool mouseEsqPressed = false;
+
 
     if (button == 0)
     {
@@ -138,12 +154,24 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
         {
             mousePressed = false;
         }
+    }else if(button == 2){
+        if(state == 0){
+            figuraPressionada = figuraManager->FiguraClicada(mouse);
+             mouseEsqPressed = true;
+        }else if (state == 1) {
+            mouseEsqPressed = false;
+        }
     }
 
     if (mousePressed && figuraPressionada >= 0)
     {
         figuraManager->moveFigura(figuraPressionada, mouse, state);
     }
+    if (mouseEsqPressed && figuraPressionada >= 0)
+    {
+        figuraManager->RotacionarFigura(figuraPressionada);
+    }
+
 
 
 }
@@ -151,16 +179,27 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
 void DrawBotoes() {
 
-   Botao* botaoRetangular = new Botao(new Retangulo(Ponto(73,662), Ponto(96, 687)), [](Ponto p) { return new  Retangulo(Ponto(576,247), Ponto(754, 381)); });
-   Botao* botaoCircular = new Botao(new Circulo(Ponto(118,675), Ponto(126, 687)), [](Ponto p) { return new  Circulo(Ponto(696,247), Ponto(754, 381)); });
-   Botao* botaoLinha = new Botao(new Linha(Ponto(139,662)), [](Ponto p) { return new  Linha(Ponto(696,247)); });
-   Botao* botaoPoligono = new Botao(new Poligono(Ponto(183,675), 15, 3), [](Ponto p) { return new  Poligono(Ponto(576,247), 60, 3); });
+    const int num_botoes = 7;
+    Botao* botoes[num_botoes];
+    int lados = 3;
+
+    for (int i = 0; i < num_botoes; i++) {
+        botoes[i] = new Botao(new Poligono(Ponto(InicioXPainel, InicioYPainel), 15, lados),
+                      [lados](Ponto p) { return new Poligono(Ponto(576, 247), 60, lados); });
+        InicioXPainel += 34;
+        lados++;
+    }
+
+    // Adicionar os botões ao gerenciador de botões usando um loop for
+    for (Botao* botao : botoes) {
+        botaoManager.AddBotao(botao);
+    }
 
 
+   Botao* botaoCircular = new Botao(new Poligono(Ponto(117,640), 15, 100), [](Ponto p) { return new  Poligono(Ponto(700,247), 60, 100); });
+   Botao* botaoLinha = new Botao(new Linha(Ponto(75,625)), [](Ponto p) { return new  Linha(Ponto(696,247)); });
 
-   botaoManager.AddBotao(botaoPoligono);
    botaoManager.AddBotao(botaoLinha);
-   botaoManager.AddBotao(botaoRetangular);
    botaoManager.AddBotao(botaoCircular);
 
 }

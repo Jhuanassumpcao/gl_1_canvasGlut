@@ -212,7 +212,7 @@
 	"gl_canvas2d.h"
 	<vector>
 
-1681670925 source:c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\main.cpp
+1681680926 source:c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\main.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	<math.h>
@@ -240,7 +240,7 @@
 	"figuraManager.h"
 	<functional>
 
-1681671278 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\figuramanager.h
+1681680198 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\figuramanager.h
 	<iostream>
 	<vector>
 	<cmath>
