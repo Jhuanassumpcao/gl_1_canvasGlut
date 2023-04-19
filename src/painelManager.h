@@ -10,7 +10,9 @@ private:
   float x, y, largura, altura;
   float r,g,b;
   bool visivel;
-  std::vector<Botao*> botoes;
+  bool isFill;
+  float corAtual[3];
+  //std::vector<Botao*> botoes;
 
 public:
   Painel(float _x, float _y, float _largura, float _altura, float _r, float _g, float _b, bool _visivel = true)
@@ -23,6 +25,9 @@ public:
     g = _g;
     b = _b;
     visivel = _visivel;
+    corAtual[0] = r;
+    corAtual[1] = g;
+    corAtual[2] = b;
 
   }
 
@@ -34,24 +39,42 @@ public:
     return visivel;
   }
 
-  bool Colidiu(int mx, int my)
-  {
-      if( (mx >= x && mx <= (x + largura)) && (my >= y && my <= (y + altura)) ) {
-          return true;
-      }
-      return false;
+    bool Colidiu(int mx, int my)
+    {
+        if (mx >= x && mx <= (x + largura) && my >= y && my <= (y + altura))
+        {
+            return true;
+        }
+        return true;
+    }
+   void SetCor(float _r, float _g, float _b) {
+    r = _r;
+    g = _g;
+    b = _b;
   }
+  float GetR() {
+      return this->r;
+  }
+  float GetG() {
+      return this->g;
+  }
+  float GetB() {
+      return this->b;
+  }
+
 
   void Render() const {
     if (!visivel) return;
 
     CV::color(r,g,b);
     CV::rectFill(x, y, largura , altura);
+    CV::color(0,0,0);
+    CV::rect(x, y, largura , altura);
     CV::color(0);
   }
-  void AddBotao(Botao* botao) {
-    botoes.push_back(botao);
-  }
+  //void AddBotao(Botao* botao) {
+   // botoes.push_back(botao);
+  //}
   void SetPosicao(float _x, float _y, float _largura, float _altura) {
     x = _x;
     y = _y;
@@ -65,8 +88,16 @@ class PainelManager {
 private:
   std::vector<Painel> paineis;
   std::vector<bool> ativo;
+  unsigned int painel_selecionado;
+  bool painel_selecionado_ativo = false;
+  float corAtual[3];
 
 public:
+    PainelManager() {
+    corAtual[0] = 1.0f;
+    corAtual[1] = 1.0f;
+    corAtual[2] = 1.0f;
+  }
   void AddPainel(Painel painel) {
     paineis.push_back(painel);
     ativo.push_back(true);
@@ -82,10 +113,19 @@ public:
   int PainelClicado(int mx, int my)
   {
     for(unsigned int i = 0; i < paineis.size(); i++){
-      if(ativo[i] && paineis[i].Colidiu(mx, my)){
-         printf("painel clicado");
-        return i;
-      }
+      if (paineis[i].Colidiu(mx, my)){
+          printf("painel clicado\n");
+           corAtual[0] = paineis[i].GetR();
+          corAtual[1] = paineis[i].GetG();
+          corAtual[2] = paineis[i].GetB();
+          paineis[i].SetCor(1.0f, 0.0f, 0.0f); // altera a cor do painel para vermelho
+          painel_selecionado = i;
+          painel_selecionado_ativo = true;
+          return i;
+        }else {
+            painel_selecionado_ativo = false;
+        }
+
     }
     return -1;
   }
@@ -114,6 +154,18 @@ public:
   }
   void AtualizaPosicao(int index, float x, float y, float largura, float altura) {
       paineis[index].SetPosicao(x, y, largura, altura);
+  }
+  void SetCorSelecionada(float r, float g, float b) {
+    corAtual[0] = r;
+    corAtual[1] = g;
+    corAtual[2] = b;
+  }
+
+  const float* GetCorSelecionada() const {
+    return corAtual;
+  }
+  bool getPainelClicado(){
+    return  painel_selecionado_ativo;
   }
 
 

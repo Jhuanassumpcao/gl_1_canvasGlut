@@ -39,13 +39,14 @@ int opcao  = 50;
 int screenWidth = 1366, screenHeight = 700; //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
 int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da render().
 
-Painel TopPainel(0, screenHeight, screenWidth, screenHeight - 120,0.93,0.93,0.93);
-Painel FormasPainel(screenWidth / 20, screenHeight -  8, (screenWidth / 4) - 30, screenHeight - 110,0.85,0.85,0.85);
-Painel ColorPainel((screenWidth / 4)- 3, screenHeight -  8, (screenWidth / 3) - 30, screenHeight - 110,0.93,0.93,0.93);
-Painel Color1Painel((screenWidth / 3)- 3, screenHeight -  8, (screenWidth / 2) , screenHeight - 110,0.93,0.93,0.93);
 
-int InicioXPainel = (screenWidth / 17) - 2;
-int InicioYPainel = screenHeight - 110;
+
+int InicioXPainel = (screenWidth / 17) + 5;
+int InicioYPainel = screenHeight - 30;
+
+static bool isLeftButtonDown = false;
+static bool isRightButtonDown = false;
+typedef void (*ButtonAction)(const Ponto&);
 
 static int figuraPressionada = -1;
 
@@ -65,18 +66,13 @@ void render()
 {
    CV::text(20,500,"Programa Demo Canvas2D");
    DrawMouseScreenCoords();
-   InicioYPainel = screenHeight -  100;
-
    figuraManager->Render();
 
    painelManager.AtualizaPosicao(0, 0, screenHeight, screenWidth, screenHeight - 120);
    painelManager.AtualizaPosicao(1,screenWidth / 20, screenHeight -  8, (screenWidth / 4) - 30, screenHeight - 110);
    painelManager.AtualizaPosicao(2,(screenWidth / 4)- 3, screenHeight -  8, (screenWidth / 3) - 30, screenHeight - 110);
    painelManager.AtualizaPosicao(3,(screenWidth / 3)- 3, screenHeight -  8, (screenWidth / 2) , screenHeight - 110);
-
-
-
-
+  // painelManager.AtualizaPosicao(4,(screenWidth / 4) + 6, screenHeight -  20, (screenWidth / 3) - 40, screenHeight - 90);
 
    painelManager.Render();
    botaoManager.Render();
@@ -102,14 +98,15 @@ void keyboard(int key)
 	  //seta para a esquerda
       case 200:
          if(figuraPressionada >= 0){
-            figuraManager->aumentaTamanho(figuraPressionada);
+            figuraManager->dimunuiTamanho(figuraPressionada);
+
          }
 
 	  break;
 
 	  case 202:
 	      if(figuraPressionada >= 0){
-            figuraManager->dimunuiTamanho(figuraPressionada);
+            figuraManager->aumentaTamanho(figuraPressionada);
 	      }
 	  break;
 
@@ -127,54 +124,62 @@ void keyboardUp(int key)
 }
 //funcao para tratamento de mouse: cliques, movimentos e arrastos
 
+void LeftButtonDown(const Ponto& mousePos) {
+    figuraPressionada = figuraManager->FiguraClicada(mousePos);
+    printf("figura foi %d", figuraPressionada);
+    botaoManager.BotaoClicado(mousePos);
+    isLeftButtonDown = true;
+}
+
+void LeftButtonUp(const Ponto& mousePos) {
+    isLeftButtonDown = false;
+}
+
+void RightButtonDown(const Ponto& mousePos) {
+    figuraPressionada = figuraManager->FiguraClicada(mousePos);
+    isRightButtonDown = true;
+}
+
+void RightButtonUp(const Ponto& mousePos) {
+    isRightButtonDown = false;
+}
+
+ButtonAction buttonActions[3][2] = {
+    {LeftButtonDown, LeftButtonUp},  // Botão esquerdo
+    {nullptr, nullptr},             // Botão do meio
+    {RightButtonDown, RightButtonUp} // Botão direito
+};
+
 void mouse(int button, int state, int wheel, int direction, int x, int y)
 {
     mouseX = x;
     mouseY = y;
 
-    Ponto mouse;
-    mouse.x = mouseX;
-    mouse.y = mouseY;
+    Ponto mousePos;
+    mousePos.x = mouseX;
+    mousePos.y = mouseY;
 
     printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 
-    static bool mousePressed = false;
-    static bool mouseEsqPressed = false;
-
-
-    if (button == 0)
-    {
-        if (state == 0) // botão pressionado
-        {
-            figuraPressionada = figuraManager->FiguraClicada(mouse);
-            botaoManager.BotaoClicado(mouse);
-            mousePressed = true;
-        }
-        else if (state == 1) // botão liberado
-        {
-            mousePressed = false;
-        }
-    }else if(button == 2){
-        if(state == 0){
-            figuraPressionada = figuraManager->FiguraClicada(mouse);
-             mouseEsqPressed = true;
-        }else if (state == 1) {
-            mouseEsqPressed = false;
+    if (button >= 0 && button < 3) {
+        ButtonAction buttonAction = buttonActions[button][state];
+        if (buttonAction) {
+            buttonAction(mousePos);
         }
     }
 
-    if (mousePressed && figuraPressionada >= 0)
+    if (isLeftButtonDown && figuraPressionada >= 0)
     {
-        figuraManager->moveFigura(figuraPressionada, mouse, state);
+        figuraManager->moveFigura(figuraPressionada, mousePos, state);
+        //figuraManager->ColoreFigura(figuraPressionada, 0,0,0);
+
     }
-    if (mouseEsqPressed && figuraPressionada >= 0)
+    if (isRightButtonDown && figuraPressionada >= 0)
     {
         figuraManager->RotacionarFigura(figuraPressionada);
     }
-
-
-
 }
+
 
 
 void DrawBotoes() {
@@ -184,8 +189,8 @@ void DrawBotoes() {
     int lados = 3;
 
     for (int i = 0; i < num_botoes; i++) {
-        botoes[i] = new Botao(new Poligono(Ponto(InicioXPainel, InicioYPainel), 15, lados),
-                      [lados](Ponto p) { return new Poligono(Ponto(576, 247), 60, lados); });
+        botoes[i] = new Botao(new Poligono(Ponto(InicioXPainel, InicioYPainel), 15, lados, false),
+                      [lados](Ponto p) { return new Poligono(Ponto(576, 247), 60, lados, false); }, 0,0,0);
         InicioXPainel += 34;
         lados++;
     }
@@ -196,22 +201,34 @@ void DrawBotoes() {
     }
 
 
-   Botao* botaoCircular = new Botao(new Poligono(Ponto(117,640), 15, 100), [](Ponto p) { return new  Poligono(Ponto(700,247), 60, 100); });
-   Botao* botaoLinha = new Botao(new Linha(Ponto(75,625)), [](Ponto p) { return new  Linha(Ponto(696,247)); });
+   Botao* botaoCircular = new Botao(new Poligono(Ponto(117,640), 15, 20, false), [](Ponto p) { return new  Poligono(Ponto(700,247), 60, 30, false); },255,0,0);
+   Botao* botaoLinha = new Botao(new Linha(Ponto(75,625), Ponto(92, 652)), [](Ponto p) { return new  Linha(Ponto(545,195), Ponto(620, 307)); },0,0,0);
+
+   Botao* botaoCor = new Botao(new Poligono(Ponto(380,650), 40, 4, true), [](Ponto p) { return nullptr; },255,100,100);
 
    botaoManager.AddBotao(botaoLinha);
+   botaoManager.AddBotao(botaoCor);
    botaoManager.AddBotao(botaoCircular);
 
 }
 
 void DrawPainels() {
    //Painel FormasPainel(68, 592, 300, 100,0.93,0.93,0.93);
+   Painel TopPainel(0, screenHeight, screenWidth, screenHeight - 120,0.93,0.93,0.93);
+   Painel FormasPainel(screenWidth / 20, screenHeight -  8, (screenWidth / 4) - 30, screenHeight - 110,0.85,0.85,0.85);
+   Painel ColorPainel((screenWidth / 4)- 3, screenHeight -  8, (screenWidth / 3) - 30, screenHeight - 110,0.93,0.93,0.93);
+   Painel Color1Painel((screenWidth / 3)- 3, screenHeight -  8, (screenWidth / 2) , screenHeight - 110,0.93,0.93,0.93);
+   Painel PickPainel((screenWidth / 4) + 6, screenHeight -  20, (screenWidth / 3) - 40, screenHeight - 90,0,0,0);
+
+
+
 
 
      painelManager.AddPainel(FormasPainel);
      painelManager.AddPainel(TopPainel);
      painelManager.AddPainel(ColorPainel);
      painelManager.AddPainel(Color1Painel);
+    // painelManager.AddPainel(PickPainel);
 
 
 }

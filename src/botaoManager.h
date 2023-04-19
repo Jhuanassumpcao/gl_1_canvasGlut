@@ -6,6 +6,7 @@
 #include <cmath>
 #include "gl_canvas2d.h"
 #include "figuraManager.h"
+#include "Color.h"
 #include <functional>
 FiguraManager *figuraManager;
 
@@ -13,14 +14,27 @@ class Botao {
 public:
     Figura* figura;
     std::function<Figura*(Ponto)> callback;
-    Botao(Figura* figura, std::function<Figura*(Ponto)> callback) : figura(figura), callback(callback) {}
+    float r;
+    float g;
+    float b;
+
+    bool botaoPressionado = false;
+
+    Botao(Figura* figura, std::function<Figura*(Ponto)> callback, float r, float g, float b) : figura(figura), callback(callback), r(r),g(g),b(b) {}
 
     bool BotaoClicado(Ponto p) {
         if (figura->Colidiu(p)) {
             printf("botao clicado");
             Figura* forma = callback(p);
-            forma->setVisivel(true); // torna a figura visível
-            figuraManager->AddFigura(forma);
+            if(forma != nullptr) {
+                forma->setVisivel(true); // torna a figura visível
+                forma->setCor(r,g,b); // define a cor da figura
+                figuraManager->AddFigura(forma);
+            }else{
+                printf("callback vazio");
+                figura->setFill();
+;            }
+
             return true;
         }
         return false;
@@ -29,6 +43,15 @@ public:
     void render() {
         figura->setVisivel(true);
         figura->Render();
+    }
+    float getR(){
+        return r;
+    }
+    float getG(){
+        return g;
+    }
+    float getB(){
+        return b;
     }
 };
 
@@ -57,6 +80,13 @@ public:
     for(unsigned int i = 0; i < botoes.size(); i++){
       if(ativo[i] && botoes[i]->BotaoClicado(mouse)){
          printf("bateu no botao %f %f", mouse.x, mouse.y);
+         int figuraClicada = figuraManager->FiguraClicada(mouse);
+         printf("a figurta clicada foi %d", figuraClicada);
+         if(figuraClicada >= 0)
+             if(figuraManager->getFill(figuraClicada) == true){
+                 figuraManager->ColoreFigura(figuraManager->FiguraClicada(mouse), botoes[i]->getR(), botoes[i]->getR(),botoes[i]->getB());
+             }
+
         return i;
       }
     }
@@ -71,6 +101,7 @@ public:
       }
     }
   }
+
 
 };
 

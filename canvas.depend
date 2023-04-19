@@ -212,7 +212,7 @@
 	"gl_canvas2d.h"
 	<vector>
 
-1681680926 source:c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\main.cpp
+1681873205 source:c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\main.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	<math.h>
@@ -232,15 +232,16 @@
 1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\relogio.h
 	"gl_canvas2d.h"
 
-1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\botaomanager.h
+1681873632 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\botaomanager.h
 	<iostream>
 	<vector>
 	<cmath>
 	"gl_canvas2d.h"
 	"figuraManager.h"
+	"Color.h"
 	<functional>
 
-1681680198 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\figuramanager.h
+1681873112 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\figuramanager.h
 	<iostream>
 	<vector>
 	<cmath>
@@ -248,7 +249,7 @@
 	"Vector2.h"
 	"Ponto.h"
 
-1681667056 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\painelmanager.h
+1681872877 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\painelmanager.h
 	"gl_canvas2d.h"
 	"botaoManager.h"
 	<vector>
@@ -258,4 +259,6 @@
 	<math.h>
 	<stdio.h>
 	<stdlib.h>
+
+1681772465 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\color.h
 

@@ -14,6 +14,7 @@ public:
     std::vector<Ponto> pontos;
     bool isFill = false;
     bool visivel = false;
+    bool figuraSelecionada = false;
     float r = 0;
     float g = 0;
     float b = 0;
@@ -45,6 +46,24 @@ public:
     void setVisivel(bool visivel) {
         this->visivel = visivel;
     }
+    void setCor(float r, float g, float b) {
+        printf("cores %f %f %f", r,g,b);
+        this->r = r;
+        this->g = g;
+        this->b = b;
+    }
+    void setFill(){
+        this->isFill = true;
+    }
+    bool getFill() {
+        return this->isFill;
+    }
+    bool getSelecionada() {
+        return this->figuraSelecionada;
+    }
+    void setSelecionada() {
+        this->figuraSelecionada = true;
+    }
     std::vector<Ponto> getPontos() const {
         return pontos;
     }
@@ -66,65 +85,12 @@ public:
 };
 
 
-
-class Circulo : public Figura {
-public:
-
-    int raio;
-
-    Circulo(Ponto ponto, int _raio){
-        pontos.push_back(ponto);
-        raio = _raio;
-    }
-
-    void Render() override
-    {
-        CV::color(r, g, b);
-        if(visivel){
-            if (isFill) {
-                CV::circleFill(pontos[0], raio, 100);
-        } else {
-            CV::circle(pontos[0], raio, 100);
-            }
-        }
-
-    }
-
-    bool Colidiu(Ponto mouse) override
-    {
-        Ponto p = pontos[0];
-        int distancia = sqrt(pow(mouse.x-p.x,2) + pow(mouse.y-p.y,2));
-          if (distancia <= raio){
-                return true;
-            }
-          return false;
-    }
-    void AumentarRaio(float aumento, Ponto centro) {
-            for (auto& ponto : pontos) {
-                ponto.x = centro.x + (ponto.x - centro.x) * (1 + aumento);
-                ponto.y = centro.y + (ponto.y - centro.y) * (1 + aumento);
-            }
-            raio *= (1 + aumento);
-
-    }
-    void DiminuirRaio(float reducao, Ponto centro) {
-         for (auto& ponto : pontos) {
-                ponto.x = centro.x + (ponto.x - centro.x) * (1 - reducao);
-                ponto.y = centro.y + (ponto.y - centro.y) * (1 - reducao);
-            }
-        raio *= (1 - reducao);
-    }
-};
-
 class Linha : public Figura {
 public:
 
-    Linha(Ponto ponto){
+    Linha(Ponto ponto, Ponto ponto2){
         pontos.push_back(ponto);
-        Ponto novoPonto;
-        novoPonto.x = ponto.x + 25;
-        novoPonto.y = ponto.y + 25;
-        pontos.push_back(novoPonto);
+        pontos.push_back(ponto2);
     }
 
 
@@ -151,19 +117,23 @@ public:
 class Poligono : public Figura {
 public:
 
-    Poligono(Ponto centro, float raio, int num_lados) {
+    Poligono(Ponto centro, float raio, int num_lados, bool isFill) {
         // calcular o ângulo entre cada vértice
         float angulo = (2.0 * PI) / num_lados;
 
         // gerar os vértices em torno do ponto central
         for (int i = 0; i < num_lados; i++) {
-            float x = centro.x + raio * cos(i * angulo);
-            float y = centro.y + raio * sin(i * angulo);
+            float x = centro.x + raio * cos(i * angulo + 0.79);
+            float y = centro.y + raio * sin(i * angulo + 0.79);
             pontos.push_back(Ponto(x, y));
+        }
+        if(isFill) {
+            this->isFill = true;
         }
     }
 
     void Render() override {
+        CV::color(r, g, b);
         if(visivel) {
             if (isFill) {
                 CV::polygonFill(pontos);
@@ -231,7 +201,6 @@ public:
 class FiguraManager {
 private:
   std::vector<Figura*> figuras;
-  Figura* figuraSelecionada = nullptr;
   std::vector<bool> ativo;
 public:
   void AddFigura(Figura* figura)
@@ -253,6 +222,7 @@ public:
     for(unsigned int i = 0; i < figuras.size(); i++){
       if(ativo[i] && figuras[i]->Colidiu(mouse)){
          printf("bateu na figura %f %f", mouse.x, mouse.y);
+
         return i;
       }
     }
@@ -313,6 +283,22 @@ public:
             printf("girandooo");
         }
     }
+
+    void ColoreFigura(int i, float r, float g, float b) {
+        printf("colorindo");
+        figuras[i]->setCor(r,g,b);
+        figuras[i]->setFill();
+    }
+    bool getFill(int i) {
+        return figuras[i]->getFill();
+    }
+    bool getSelecionada(int i) {
+        return figuras[i]->getSelecionada();
+    }
+    void setSelecionada(int i) {
+        return figuras[i]->setSelecionada();
+    }
+
 
 
 
