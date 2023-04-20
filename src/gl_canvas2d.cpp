@@ -24,7 +24,7 @@ public:
     int x, y;
 };
 //conjunto de cores predefinidas. Pode-se adicionar mais cores.
-float Colors[14][3]=
+float Colors[28][3]=
 {
     {0, 0, 0}, //Black
     {0.5, 0.5, 0.5}, //Gray
@@ -40,6 +40,20 @@ float Colors[14][3]=
     {0, 0.5, 0.5}, //
     {0.5, 0, 0.5}, //
     {1, 1, 1}, //white
+    (255, 165, 0), // Laranja
+    (255, 255, 0), // Amarelo
+    (0, 255, 255), // Ciano
+    (0, 0, 255),   // Azul
+    (75, 0, 130),  // Índigo
+    (238, 130, 238), // Violeta
+    (255, 0, 0),   // Vermelho
+    (165, 42, 0),  // Marrom
+    (128, 255, 0), // Verde-limão
+    (0, 255, 0),   // Verde
+    (128, 0, 128), // Roxo
+    (0, 128, 0),   // Verde-escuro
+    (75, 0, 130),  // Índigo
+    (238, 130, 238) // Violeta
 };
 
 void ConvertMouseCoord(int button, int state, int wheel, int direction, int x, int y);

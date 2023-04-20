@@ -18,11 +18,11 @@ public:
     float r = 0;
     float g = 0;
     float b = 0;
-    unsigned int num_lados = 0;
     int raio;
 
 
     void moveArrastando(Ponto ponto, Ponto mouse){
+        //printf("%d %d", ponto.x, ponto.y);
         int x = ponto.x - mouse.x;
         int y = ponto.y - mouse.y;
         for (auto& ponto : pontos) {
@@ -32,9 +32,17 @@ public:
 
     }
 
-    unsigned int getLados(){
-        return num_lados;
+    void moveFig(Ponto ponto, Ponto mouse){
+        int x = ponto.x - mouse.x;
+        int y = ponto.y - mouse.y;
+        for (auto& ponto : pontos) {
+            ponto.x -= x;
+            ponto.y -= y;
+        }
+
     }
+
+
 
     virtual void add_point(Ponto ponto){
         pontos.push_back(ponto);
@@ -47,7 +55,7 @@ public:
         this->visivel = visivel;
     }
     void setCor(float r, float g, float b) {
-        printf("cores %f %f %f", r,g,b);
+        //printf("cores %f %f %f", r,g,b);
         this->r = r;
         this->g = g;
         this->b = b;
@@ -76,6 +84,20 @@ public:
     void DiminuirRaio(float reducao, Ponto centro) {
 
     }
+    void MudaPosicao(int x, int y, Ponto centro) {
+
+    }
+     Ponto getCentro(){
+          Ponto centro;
+        for(unsigned int j = 0; j < getPontos().size(); j++){
+            centro.x += getPontos()[j].x;
+            centro.y += getPontos()[j].y;
+        }
+        centro.x /= getPontos().size();
+        centro.y /= getPontos().size();
+        return centro;
+  }
+
 
 
     virtual void Render() = 0;
@@ -87,10 +109,16 @@ public:
 
 class Linha : public Figura {
 public:
+    Linha(){
+    }
 
-    Linha(Ponto ponto, Ponto ponto2){
+    Linha(Ponto ponto, Ponto ponto2, bool isFill){
         pontos.push_back(ponto);
         pontos.push_back(ponto2);
+
+        if(isFill) {
+            this->isFill = true;
+        }
     }
 
 
@@ -102,6 +130,7 @@ public:
         }
 
     }
+
 
     bool Colidiu(Ponto mouse) override
     {
@@ -193,6 +222,16 @@ public:
             ponto.y = m[1][0]*x + m[1][1]*y + m[1][2];
         }
     }
+    void MudaPosicao(int x, int y, Ponto centro) {
+        for (auto& ponto : pontos) {
+            ponto.x = ponto.x + (x - centro.x);
+            ponto.y = ponto.y + (y - centro.y);
+        }
+        centro.x = x;
+        centro.y = y;
+    }
+
+
 
 
 };
@@ -221,7 +260,9 @@ public:
   {
     for(unsigned int i = 0; i < figuras.size(); i++){
       if(ativo[i] && figuras[i]->Colidiu(mouse)){
-         printf("bateu na figura %f %f", mouse.x, mouse.y);
+         printf("bateu na figura");
+         figuras.push_back(figuras[i]);
+         figuras.erase(figuras.begin() + i);
 
         return i;
       }
@@ -238,20 +279,11 @@ public:
     }
 
   }
-  Ponto getCentro(int i){
-      Ponto centro;
-    for(unsigned int j = 0; j < figuras[i]->getPontos().size(); j++){
-        centro.x += figuras[i]->getPontos()[j].x;
-        centro.y += figuras[i]->getPontos()[j].y;
-    }
-    centro.x /= figuras[i]->getPontos().size();
-    centro.y /= figuras[i]->getPontos().size();
-    return centro;
-  }
+
      void moveFigura(int i, Ponto mouse, int state){
         if(ativo[i] && figuras[i]->Colidiu(mouse)){
             // Calcular o centro do polígono
-            Ponto centro = getCentro(i);
+            Ponto centro = figuras[i]->getCentro();
 
             // Usar o centro como ponto de referência na função moveArrastando()
             figuras[i]->moveArrastando(centro, mouse);
@@ -263,7 +295,7 @@ public:
         Figura* figura = figuras[i];
         Poligono* poligono = dynamic_cast<Poligono*>(figura);
         if (poligono != nullptr) {
-            poligono->AumentarRaio(0.1, getCentro(i));
+            poligono->AumentarRaio(0.1, figuras[i]->getCentro());
         }
     }
 
@@ -271,7 +303,7 @@ public:
         Figura* figura = figuras[i];
         Poligono* poligono = dynamic_cast<Poligono*>(figura);
         if (poligono != nullptr) {
-            poligono->DiminuirRaio(0.1, getCentro(i));
+            poligono->DiminuirRaio(0.1, figuras[i]->getCentro());
         }
     }
 
@@ -279,15 +311,15 @@ public:
         Figura* figura = figuras[i];
         Poligono* poligono = dynamic_cast<Poligono*>(figura);
         if (poligono != nullptr) {
-            poligono->Rotacionar(5.0, getCentro(i));
+            poligono->Rotacionar(5.0, figuras[i]->getCentro());
             printf("girandooo");
         }
     }
 
     void ColoreFigura(int i, float r, float g, float b) {
         printf("colorindo");
-        figuras[i]->setCor(r,g,b);
         figuras[i]->setFill();
+        figuras[i]->setCor(r,g,b);
     }
     bool getFill(int i) {
         return figuras[i]->getFill();
@@ -297,6 +329,11 @@ public:
     }
     void setSelecionada(int i) {
         return figuras[i]->setSelecionada();
+    }
+    void AtualizaPosicao(int i, Ponto ponto) {
+        //for(unsigned int i = 0; i < 3; i++ ){
+            figuras[i]->moveFig(ponto, figuras[i]->getCentro());
+        //}
     }
 
 

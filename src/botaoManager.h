@@ -9,6 +9,11 @@
 #include "Color.h"
 #include <functional>
 FiguraManager *figuraManager;
+int screenWidth = 1366, screenHeight = 700;
+int InicioXPainel = (screenWidth / 17) + 5;
+int InicioYPainel = screenHeight - 30;
+
+
 
 class Botao {
 public:
@@ -19,6 +24,7 @@ public:
     float b;
 
     bool botaoPressionado = false;
+    bool isFill = false;
 
     Botao(Figura* figura, std::function<Figura*(Ponto)> callback, float r, float g, float b) : figura(figura), callback(callback), r(r),g(g),b(b) {}
 
@@ -26,6 +32,7 @@ public:
         if (figura->Colidiu(p)) {
             printf("botao clicado");
             Figura* forma = callback(p);
+            botaoPressionado = false;
             if(forma != nullptr) {
                 forma->setVisivel(true); // torna a figura visível
                 forma->setCor(r,g,b); // define a cor da figura
@@ -33,17 +40,39 @@ public:
             }else{
                 printf("callback vazio");
                 figura->setFill();
+                isFill = true;
+                botaoPressionado = true;
 ;            }
 
             return true;
         }
         return false;
     }
+    //void MudaPosicao(Ponto p) {
+    //    figura->moveArrastando(p, figura->pontos[0]);
+    //}
 
     void render() {
         figura->setVisivel(true);
+        figura->setCor(r,g,b);
         figura->Render();
+        //figura->moveArrastando(Ponto(InicioXPainel, InicioYPainel), figura->getCentro());
+        //figuraManager->AddFigura(figura);
+
     }
+    void atualizaCor(float r, float g, float b){
+        figura->setCor(r,g,b);
+    }
+    bool getBotaoPressionado(){
+        return this->botaoPressionado;
+    }
+    bool botaoIsfill(){
+        return this->isFill;
+    }
+    void setBotaoPressionado(bool value){
+        this->botaoPressionado = value;
+    }
+
     float getR(){
         return r;
     }
@@ -51,7 +80,9 @@ public:
         return g;
     }
     float getB(){
+        botaoPressionado = false;
         return b;
+
     }
 };
 
@@ -79,13 +110,9 @@ public:
   {
     for(unsigned int i = 0; i < botoes.size(); i++){
       if(ativo[i] && botoes[i]->BotaoClicado(mouse)){
-         printf("bateu no botao %f %f", mouse.x, mouse.y);
-         int figuraClicada = figuraManager->FiguraClicada(mouse);
-         printf("a figurta clicada foi %d", figuraClicada);
-         if(figuraClicada >= 0)
-             if(figuraManager->getFill(figuraClicada) == true){
-                 figuraManager->ColoreFigura(figuraManager->FiguraClicada(mouse), botoes[i]->getR(), botoes[i]->getR(),botoes[i]->getB());
-             }
+         printf("bateu no botao !!!!!!!!%d!!!!!!!!! ", i);
+         printf("%d", botoes[i]->botaoIsfill());
+
 
         return i;
       }
@@ -101,6 +128,29 @@ public:
       }
     }
   }
+
+ bool botaoCor(int i) {
+        return botoes[i]->botaoIsfill();
+
+  }
+   bool getPressionado(int i ){
+
+        return botoes[i]->getBotaoPressionado();
+
+       }
+   void atualizaCor(int i, float r, float g, float b){
+        botoes[14]->atualizaCor(255,0,0);
+   }
+
+    float getR(int i){
+        return botoes[i]->getR();
+    }
+    float getG(int i){
+        return botoes[i]->getG();
+    }
+    float getB(int i){
+        return botoes[i]->getB();
+    }
 
 
 };
