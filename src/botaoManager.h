@@ -61,7 +61,9 @@ public:
 
     }
     void atualizaCor(float r, float g, float b){
-        figura->setCor(r,g,b);
+        this->r = r;
+        this->r = g;
+        this->r = b;
     }
     bool getBotaoPressionado(){
         return this->botaoPressionado;
@@ -139,7 +141,8 @@ public:
 
        }
    void atualizaCor(int i, float r, float g, float b){
-        botoes[14]->atualizaCor(255,0,0);
+       //figuraManager->ColoreFigura(21, 255,0,0);
+        botoes[7]->atualizaCor(255,0,0);
    }
 
     float getR(int i){

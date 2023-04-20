@@ -208,11 +208,11 @@
 
 1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\vector2.h
 
-1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\ponto.h
+1682002707 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\ponto.h
 	"gl_canvas2d.h"
 	<vector>
 
-1681963111 source:c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\main.cpp
+1682003618 source:c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\main.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	<math.h>
@@ -232,7 +232,7 @@
 1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\relogio.h
 	"gl_canvas2d.h"
 
-1681959799 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\botaomanager.h
+1682004302 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\botaomanager.h
 	<iostream>
 	<vector>
 	<cmath>
@@ -241,7 +241,7 @@
 	"Color.h"
 	<functional>
 
-1681963774 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\figuramanager.h
+1682004780 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\figuramanager.h
 	<iostream>
 	<vector>
 	<cmath>

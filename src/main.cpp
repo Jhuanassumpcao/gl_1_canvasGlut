@@ -47,7 +47,6 @@ static bool isLeftButtonDown = false;
 static bool isRightButtonDown = false;
 typedef void (*ButtonAction)(const Ponto&);
 
-static int figuraPressionada = -1;
 static int botaoPressionado = -1;
 
 void DrawMouseScreenCoords()
@@ -72,7 +71,7 @@ void render()
    painelManager.AtualizaPosicao(1,screenWidth / 20, screenHeight -  8, (screenWidth / 4) - 30, screenHeight - 110);
    painelManager.AtualizaPosicao(2,(screenWidth / 4)- 3, screenHeight -  8, (screenWidth / 3) - 30, screenHeight - 110);
    painelManager.AtualizaPosicao(3,(screenWidth / 3)- 3, screenHeight -  8, (screenWidth / 2) , screenHeight - 110);
-  // painelManager.AtualizaPosicao(4,(screenWidth / 4) + 6, screenHeight -  20, (screenWidth / 3) - 40, screenHeight - 90);
+   painelManager.AtualizaPosicao(4,(screenWidth) - 200, screenHeight -  8, (screenWidth / 2) + 100, screenHeight - 110);
  // figuraManager->AtualizaPosicao(0, Ponto(InicioXPainel, InicioYPainel));
    painelManager.Render();
    botaoManager.Render();
@@ -103,6 +102,21 @@ void keyboard(int key)
          }
 
 	  break;
+	  case 201:
+         if(figuraPressionada >= 0){
+            figuraManager->RotacionarFigura(figuraPressionada, -5.0f);
+
+         }
+
+	  break;
+	  case 203:
+         if(figuraPressionada >= 0){
+            figuraManager->RotacionarFigura(figuraPressionada, 5.0f);
+
+         }
+
+	  break;
+
 
 	  case 202:
 	      if(figuraPressionada >= 0){
@@ -178,8 +192,9 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
         printf("vamo ver os sai aqui %d //////q", botaoManager.BotaoClicado(mousePos));
         for(int i = 7; i <= tam_cores + 7; i++) {
             if(botaoManager.getPressionado(i)) {
+                botaoManager.atualizaCor(21,botaoManager.getR(i), botaoManager.getG(i), botaoManager.getB(i));
+                //botaoManager.atualizaCor(i, 255,0,0);
                 figuraManager->ColoreFigura(figuraPressionada, botaoManager.getR(i), botaoManager.getG(i), botaoManager.getB(i));
-                //botaoManager.atualizaCor(14,botaoManager.getR(i), botaoManager.getG(i), botaoManager.getB(i));
                 break; // interrompe o loop após encontrar o primeiro botão pressionado
             }
         }
@@ -188,7 +203,7 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
     }
     if (isRightButtonDown && figuraPressionada >= 0)
     {
-        figuraManager->RotacionarFigura(figuraPressionada);
+        figuraManager->RotacionarFigura(figuraPressionada , -5.0f);
     }
 }
 
@@ -234,6 +249,7 @@ void DrawBotoes() {
         Color(238, 130, 238) // Violeta
     };
     Botao* botaoCor = new Botao(new Poligono(Ponto(380, 650), 40, 4, true), [](Ponto p) { return nullptr; }, 0, 0, 0);
+       botaoManager.AddBotao(botaoCor);
     for (int i = 0; i < 14; i++) {
         //if (i == 2) continue; // Pula a cor branca
         botoesCor[i] = new Botao(new Poligono(Ponto(x, y), tam_botao, 4, true), [](Ponto p) { return nullptr; }, cores[i].r, cores[i].g, cores[i].b);
@@ -243,7 +259,6 @@ void DrawBotoes() {
             y += tam_botao + margem;
         }
     }
-
 
 
 
@@ -259,8 +274,7 @@ void DrawBotoes() {
 
 
 
-   //botaoManager.AddBotao(botaoLinha);
-   botaoManager.AddBotao(botaoCor);
+   botaoManager.AddBotao(botaoLinha);
    botaoManager.AddBotao(botaoCircular);
 
 }

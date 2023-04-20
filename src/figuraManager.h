@@ -8,6 +8,8 @@
 #include "Vector2.h"
 #include "Ponto.h"
 
+static int figuraPressionada = -1;
+
 class Figura {
 public:
 
@@ -75,7 +77,7 @@ public:
     std::vector<Ponto> getPontos() const {
         return pontos;
     }
-   virtual void AumentarRaio(float aumento, Ponto centro) {
+   virtual void escalar(float escala, Ponto centro) {
         // faz nada por padrão
     }
     virtual void Rotacionar(float aumento, Ponto centro) {
@@ -140,6 +142,38 @@ public:
         float denominador = (p.y - q.y) * (p.y - q.y) + (p.x - q.x) * (p.x - q.x);
         return abs(numerador) / sqrt(denominador) < 2;
     }
+    void escalar(float escala, Ponto centro) {
+        Ponto p1 = pontos[0];
+        printf(" escalaaaaaa %f", escala);
+        float novaEscala;
+        if((float)escala == (float)-0.1){
+            novaEscala = 0.4;
+            printf("entrou na escala negativa");
+        }else {
+            novaEscala = 1.3;
+            printf("entrou na escala positiva");
+        }
+
+        Ponto p2 = pontos[1];
+        float dx = p2.x - p1.x;
+        float dy = p2.y - p1.y;
+        float nova_distancia = sqrt(dx*dx + dy*dy) * novaEscala;
+        float proporcao = nova_distancia / sqrt(dx*dx + dy*dy);
+        pontos[0] = Ponto(centro.x + dx * proporcao / 2, centro.y + dy * proporcao / 2);
+        pontos[1] = Ponto(centro.x - dx * proporcao / 2, centro.y - dy * proporcao / 2);
+    }
+    void Rotacionar(float angulo, Ponto centro) {
+        Ponto p1 = pontos[0];
+        Ponto p2 = pontos[1];
+        float dx = p2.x - p1.x;
+        float dy = p2.y - p1.y;
+        float nova_x1 = centro.x + (p1.x - centro.x) * cos(angulo) - (p1.y - centro.y) * sin(angulo);
+        float nova_y1 = centro.y + (p1.x - centro.x) * sin(angulo) + (p1.y - centro.y) * cos(angulo);
+        float nova_x2 = centro.x + (p2.x - centro.x) * cos(angulo) - (p2.y - centro.y) * sin(angulo);
+        float nova_y2 = centro.y + (p2.x - centro.x) * sin(angulo) + (p2.y - centro.y) * cos(angulo);
+        pontos[0] = Ponto(nova_x1, nova_y1);
+        pontos[1] = Ponto(nova_x2, nova_y2);
+    }
 
 };
 
@@ -170,7 +204,10 @@ public:
                 CV::polygon(pontos);
             }
         }
+
     }
+
+
 
     bool Colidiu(Ponto mouse)
     {
@@ -184,20 +221,13 @@ public:
         }
         return colidiu;
     }
-    void AumentarRaio(float aumento, Ponto centro) {
+    void escalar(float escala, Ponto centro) {
             for (auto& ponto : pontos) {
-                ponto.x = centro.x + (ponto.x - centro.x) * (1 + aumento);
-                ponto.y = centro.y + (ponto.y - centro.y) * (1 + aumento);
+                ponto.x = centro.x + (ponto.x - centro.x) * (1 + escala);
+                ponto.y = centro.y + (ponto.y - centro.y) * (1 + escala);
             }
-            raio *= (1 + aumento);
+            raio *= (1 + escala);
 
-    }
-    void DiminuirRaio(float reducao, Ponto centro) {
-         for (auto& ponto : pontos) {
-                ponto.x = centro.x + (ponto.x - centro.x) * (1 - reducao);
-                ponto.y = centro.y + (ponto.y - centro.y) * (1 - reducao);
-            }
-        raio *= (1 - reducao);
     }
 
 
@@ -260,6 +290,9 @@ public:
   {
     for(unsigned int i = 0; i < figuras.size(); i++){
       if(ativo[i] && figuras[i]->Colidiu(mouse)){
+
+            CV::rectFill(mouse, mouse + mouse);
+
          printf("bateu na figura");
          figuras.push_back(figuras[i]);
          figuras.erase(figuras.begin() + i);
@@ -283,35 +316,29 @@ public:
      void moveFigura(int i, Ponto mouse, int state){
         if(ativo[i] && figuras[i]->Colidiu(mouse)){
             // Calcular o centro do polígono
-            Ponto centro = figuras[i]->getCentro();
+            Ponto centro = figuras[i]->getCentro() ;
 
             // Usar o centro como ponto de referência na função moveArrastando()
             figuras[i]->moveArrastando(centro, mouse);
         }
     }
 
-
     void aumentaTamanho(int i) {
         Figura* figura = figuras[i];
-        Poligono* poligono = dynamic_cast<Poligono*>(figura);
-        if (poligono != nullptr) {
-            poligono->AumentarRaio(0.1, figuras[i]->getCentro());
-        }
+        figura->escalar(0.1, figuras[i]->getCentro());
     }
 
     void dimunuiTamanho(int i) {
         Figura* figura = figuras[i];
-        Poligono* poligono = dynamic_cast<Poligono*>(figura);
-        if (poligono != nullptr) {
-            poligono->DiminuirRaio(0.1, figuras[i]->getCentro());
-        }
+        figura->escalar(-0.1, figuras[i]->getCentro());
     }
 
-    void RotacionarFigura(int i) {
+
+    void RotacionarFigura(int i, float angulo) {
         Figura* figura = figuras[i];
-        Poligono* poligono = dynamic_cast<Poligono*>(figura);
-        if (poligono != nullptr) {
-            poligono->Rotacionar(5.0, figuras[i]->getCentro());
+        //Poligono* poligono = dynamic_cast<Poligono*>(figura);
+        if (figura != nullptr) {
+            figura->Rotacionar(angulo, figuras[i]->getCentro());
             printf("girandooo");
         }
     }
@@ -335,6 +362,7 @@ public:
             figuras[i]->moveFig(ponto, figuras[i]->getCentro());
         //}
     }
+
 
 
 
