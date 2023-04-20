@@ -232,7 +232,7 @@
 1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\relogio.h
 	"gl_canvas2d.h"
 
-1682004302 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\botaomanager.h
+1682009801 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\botaomanager.h
 	<iostream>
 	<vector>
 	<cmath>
@@ -241,7 +241,7 @@
 	"Color.h"
 	<functional>
 
-1682004780 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\figuramanager.h
+1682010247 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\figuramanager.h
 	<iostream>
 	<vector>
 	<cmath>

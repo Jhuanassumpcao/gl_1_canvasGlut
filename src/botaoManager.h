@@ -34,9 +34,12 @@ public:
             Figura* forma = callback(p);
             botaoPressionado = false;
             if(forma != nullptr) {
+                //Figura* mini = callback(Ponto(800,675));
                 forma->setVisivel(true); // torna a figura visível
                 forma->setCor(r,g,b); // define a cor da figura
+               // mini->setVisivel(true);
                 figuraManager->AddFigura(forma);
+                //figuraManager->AddFigura(mini);
             }else{
                 printf("callback vazio");
                 figura->setFill();

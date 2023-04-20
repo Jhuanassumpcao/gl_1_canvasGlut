@@ -362,9 +362,14 @@ public:
             figuras[i]->moveFig(ponto, figuras[i]->getCentro());
         //}
     }
+    void salvar(){
+        std::ofstream arquivo("figuras.ain", std::ios::out | std::ios::binary);
+        for (auto it = figuras.begin(); it != figuras.end(); ++it) {
+            arquivo.write(reinterpret_cast<const char*>(*it), sizeof(Figura));
+        }
 
 
-
+    }
 
 
 
