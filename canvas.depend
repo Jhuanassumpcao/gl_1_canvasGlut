@@ -262,3 +262,51 @@
 
 1681772465 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\color.h
 
+1682010452 source:c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+	"Ponto.h"
+	<vector>
+
+1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"Vector2.h"
+	"Ponto.h"
+
+1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\include\gl\glut.h
+	"freeglut_std.h"
+
+1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\src\vector2.h
+
+1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\src\ponto.h
+	"gl_canvas2d.h"
+	<vector>
+
+1682010452 source:c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\src\relogio.cpp
+	"Relogio.h"
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+
+1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\src\relogio.h
+	"gl_canvas2d.h"
+

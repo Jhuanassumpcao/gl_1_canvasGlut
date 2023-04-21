@@ -6,6 +6,7 @@
 #include <cmath>
 #include "gl_canvas2d.h"
 #include "Vector2.h"
+#include <fstream>
 #include "Ponto.h"
 
 static int figuraPressionada = -1;
@@ -363,13 +364,12 @@ public:
         //}
     }
     void salvar(){
-        std::ofstream arquivo("figuras.ain", std::ios::out | std::ios::binary);
+        std::ofstream arquivo("figuras.bin", std::ios::out | std::ios::binary);
         for (auto it = figuras.begin(); it != figuras.end(); ++it) {
-            arquivo.write(reinterpret_cast<const char*>(*it), sizeof(Figura));
+            arquivo.write(reinterpret_cast<const char*>(&(*it)), sizeof(Figura));
         }
-
-
     }
+
 
 
 
