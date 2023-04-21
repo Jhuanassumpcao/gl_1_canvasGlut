@@ -114,13 +114,6 @@ public:
   {
     for(unsigned int i = 0; i < paineis.size(); i++){
       if (paineis[i].Colidiu(mx, my)){
-          printf("painel clicado\n");
-           corAtual[0] = paineis[i].GetR();
-          corAtual[1] = paineis[i].GetG();
-          corAtual[2] = paineis[i].GetB();
-          paineis[i].SetCor(1.0f, 0.0f, 0.0f); // altera a cor do painel para vermelho
-          painel_selecionado = i;
-          painel_selecionado_ativo = true;
           return i;
         }else {
             painel_selecionado_ativo = false;

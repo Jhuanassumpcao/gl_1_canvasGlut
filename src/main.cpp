@@ -36,7 +36,6 @@ PainelManager painelManager;
 
 //variavel global para selecao do que sera exibido na canvas.
 int opcao  = 50;
- //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
 int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da render().
 
 
@@ -49,22 +48,11 @@ typedef void (*ButtonAction)(const Ponto&);
 
 static int botaoPressionado = -1;
 
-void DrawMouseScreenCoords()
-{
-    char str[100];
-    sprintf(str, "Mouse: (%d,%d)", mouseX, mouseY);
-    CV::text(10,300, str);
-    sprintf(str, "Screen: (%d,%d)", screenWidth, screenHeight);
-    CV::text(10,320, str);
-}
-
 //funcao chamada continuamente. Deve-se controlar o que desenhar por meio de variaveis globais
 //Todos os comandos para desenho na canvas devem ser chamados dentro da render().
 //Deve-se manter essa fun��o com poucas linhas de codigo.
 void render()
 {
-   CV::text(20,500,"Programa Demo Canvas2D");
-   DrawMouseScreenCoords();
    figuraManager->Render();
 
    painelManager.AtualizaPosicao(0, 0, screenHeight, screenWidth, screenHeight - 120);
@@ -72,7 +60,7 @@ void render()
    painelManager.AtualizaPosicao(2,(screenWidth / 4)- 3, screenHeight -  8, (screenWidth / 3) - 30, screenHeight - 110);
    painelManager.AtualizaPosicao(3,(screenWidth / 3)- 3, screenHeight -  8, (screenWidth / 2) , screenHeight - 110);
    painelManager.AtualizaPosicao(4,(screenWidth) - 200, screenHeight -  8, (screenWidth / 2) + 100, screenHeight - 110);
- // figuraManager->AtualizaPosicao(0, Ponto(InicioXPainel, InicioYPainel));
+
    painelManager.Render();
    botaoManager.Render();
 
@@ -93,6 +81,9 @@ void keyboard(int key)
       case 27:
 	     exit(0);
 	  break;
+	  case 19:
+        figuraManager->escreverDados("figuras.txt");
+      break;
 
 	  //seta para a esquerda
       case 200:
@@ -140,7 +131,6 @@ void keyboardUp(int key)
 
 void LeftButtonDown(const Ponto& mousePos) {
     figuraPressionada = figuraManager->FiguraClicada(mousePos);
-    printf("//////////figura foi %d //////////", figuraPressionada);
     botaoManager.BotaoClicado(mousePos);
 
     isLeftButtonDown = true;
@@ -178,7 +168,6 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
     if (button >= 0 && button < 3) {
         ButtonAction buttonAction = buttonActions[button][state];
-       // botaoManager.getPressionado(mousePos);
         if (buttonAction) {
             buttonAction(mousePos);
         }
@@ -187,13 +176,10 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
     if (isLeftButtonDown && figuraPressionada >= 0)
     {
-        printf("figura clicada foi %d", figuraPressionada);
         figuraManager->moveFigura(figuraPressionada, mousePos, state);
-        printf("vamo ver os sai aqui %d //////q", botaoManager.BotaoClicado(mousePos));
         for(int i = 7; i <= tam_cores + 7; i++) {
             if(botaoManager.getPressionado(i)) {
                 botaoManager.atualizaCor(21,botaoManager.getR(i), botaoManager.getG(i), botaoManager.getB(i));
-                //botaoManager.atualizaCor(i, 255,0,0);
                 figuraManager->ColoreFigura(figuraPressionada, botaoManager.getR(i), botaoManager.getG(i), botaoManager.getB(i));
                 break; // interrompe o loop após encontrar o primeiro botão pressionado
             }
@@ -251,7 +237,6 @@ void DrawBotoes() {
     Botao* botaoCor = new Botao(new Poligono(Ponto(380, 650), 40, 4, true), [](Ponto p) { return nullptr; }, 0, 0, 0);
        botaoManager.AddBotao(botaoCor);
     for (int i = 0; i < 14; i++) {
-        //if (i == 2) continue; // Pula a cor branca
         botoesCor[i] = new Botao(new Poligono(Ponto(x, y), tam_botao, 4, true), [](Ponto p) { return nullptr; }, cores[i].r, cores[i].g, cores[i].b);
         x += tam_botao + margem;
         if (x > x_inicial + 6 * (tam_botao + margem)) {
@@ -260,33 +245,21 @@ void DrawBotoes() {
         }
     }
 
-
-
-
     for (Botao* botao : botoesCor) {
         botaoManager.AddBotao(botao);
     }
 
-
-
    Botao* botaoCircular = new Botao(new Poligono(Ponto(117,640), 15, 20, false), [](Ponto p) { return new  Poligono(Ponto(700,247), 60, 30, false); },0,0,0);
-   Botao* botaoLinha = new Botao(new Linha(Ponto(75,625), Ponto(92, 652), false), [](Ponto p) { return new  Linha(Ponto(545,195), Ponto(620, 307), false); },0,0,0);
-
-
-
-   botaoManager.AddBotao(botaoLinha);
    botaoManager.AddBotao(botaoCircular);
 
 }
 
 void DrawPainels() {
-   //Painel FormasPainel(68, 592, 300, 100,0.93,0.93,0.93);
+
    Painel TopPainel(0, screenHeight, screenWidth, screenHeight - 120,0.93,0.93,0.93);
    Painel FormasPainel(screenWidth / 20, screenHeight -  8, (screenWidth / 4) - 30, screenHeight - 110,0.85,0.85,0.85);
    Painel ColorPainel((screenWidth / 4)- 3, screenHeight -  8, (screenWidth / 3) - 30, screenHeight - 110,0.93,0.93,0.93);
    Painel Color1Painel((screenWidth / 3)- 3, screenHeight -  8, (screenWidth / 2) , screenHeight - 110,0.93,0.93,0.93);
-   Painel PickPainel((screenWidth / 4) + 6, screenHeight -  20, (screenWidth / 3) - 40, screenHeight - 90,0,0,0);
-
     Painel FigsPainel((screenWidth) - 200, screenHeight -  8, (screenWidth / 2) + 100, screenHeight - 110,0.93,0.93,0.93);
 
 
@@ -302,13 +275,14 @@ void DrawPainels() {
 
 int main(void)
 {
-   b = new Bola();
-   r = new Relogio();
 
    figuraManager = new FiguraManager();
+   figuraManager->lerDados("figuras.txt");
 
    DrawPainels();
    DrawBotoes();
+
+
 
    CV::init(&screenWidth, &screenHeight, "Trabalho 1: Jhuan Assumpcao");
    CV::run();

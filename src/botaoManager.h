@@ -30,16 +30,12 @@ public:
 
     bool BotaoClicado(Ponto p) {
         if (figura->Colidiu(p)) {
-            printf("botao clicado");
             Figura* forma = callback(p);
             botaoPressionado = false;
             if(forma != nullptr) {
-                //Figura* mini = callback(Ponto(800,675));
                 forma->setVisivel(true); // torna a figura visível
                 forma->setCor(r,g,b); // define a cor da figura
-               // mini->setVisivel(true);
                 figuraManager->AddFigura(forma);
-                //figuraManager->AddFigura(mini);
             }else{
                 printf("callback vazio");
                 figura->setFill();
@@ -51,16 +47,12 @@ public:
         }
         return false;
     }
-    //void MudaPosicao(Ponto p) {
-    //    figura->moveArrastando(p, figura->pontos[0]);
-    //}
+
 
     void render() {
         figura->setVisivel(true);
         figura->setCor(r,g,b);
         figura->Render();
-        //figura->moveArrastando(Ponto(InicioXPainel, InicioYPainel), figura->getCentro());
-        //figuraManager->AddFigura(figura);
 
     }
     void atualizaCor(float r, float g, float b){
@@ -115,10 +107,6 @@ public:
   {
     for(unsigned int i = 0; i < botoes.size(); i++){
       if(ativo[i] && botoes[i]->BotaoClicado(mouse)){
-         printf("bateu no botao !!!!!!!!%d!!!!!!!!! ", i);
-         printf("%d", botoes[i]->botaoIsfill());
-
-
         return i;
       }
     }
@@ -144,7 +132,6 @@ public:
 
        }
    void atualizaCor(int i, float r, float g, float b){
-       //figuraManager->ColoreFigura(21, 255,0,0);
         botoes[7]->atualizaCor(255,0,0);
    }
 
