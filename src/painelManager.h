@@ -72,9 +72,7 @@ public:
     CV::rect(x, y, largura , altura);
     CV::color(0);
   }
-  //void AddBotao(Botao* botao) {
-   // botoes.push_back(botao);
-  //}
+
   void SetPosicao(float _x, float _y, float _largura, float _altura) {
     x = _x;
     y = _y;
