@@ -1,178 +1,4 @@
 # depslib dependency file v1.0
-1680983563 source:c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\gl_canvas2d.cpp
-	"gl_canvas2d.h"
-	<GL/glut.h>
-	"Ponto.h"
-	<vector>
-
-1681388295 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\gl_canvas2d.h
-	<stdio.h>
-	<stdlib.h>
-	<math.h>
-	<string.h>
-	<GL/glut.h>
-	<GL/freeglut_ext.h>
-	"Vector2.h"
-	"Ponto.h"
-
-1426372440 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\include\gl\glut.h
-	"freeglut_std.h"
-
-1437579942 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\include\gl\freeglut_std.h
-	<windows.h>
-	<EGL/egl.h>
-	<GLES/gl.h>
-	<GLES2/gl2.h>
-	<OpenGL/gl.h>
-	<OpenGL/glu.h>
-	<GL/gl.h>
-	<GL/glu.h>
-	<stdlib.h>
-
-1426372440 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\include\gl\freeglut_ext.h
-	<stdarg.h>
-
-1680792654 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\vector2.h
-
-1681397380 source:c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\main.cpp
-	<GL/glut.h>
-	<GL/freeglut_ext.h>
-	<math.h>
-	<stdio.h>
-	<stdlib.h>
-	<vector>
-	"gl_canvas2d.h"
-	"Bola.h"
-	"Relogio.h"
-	"botaoManager.h"
-	"painelmanager.h"
-	"figuraManager.h"
-
-1589214882 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\bola.h
-	"gl_canvas2d.h"
-
-1193164156 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\relogio.h
-	"gl_canvas2d.h"
-
-1680137625 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\botao.h
-
-1589218349 source:c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\relogio.cpp
-	"Relogio.h"
-	<math.h>
-	<stdio.h>
-	<stdlib.h>
-
-1680986547 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\botaomanager.h
-	<iostream>
-	<vector>
-	<cmath>
-	"gl_canvas2d.h"
-	"figuraManager.h"
-	<functional>
-
-1680985070 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\painelmanager.h
-	"gl_canvas2d.h"
-	"botaoManager.h"
-	<vector>
-
-1681317882 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\figuramanager.h
-	<iostream>
-	<vector>
-	<cmath>
-	"gl_canvas2d.h"
-	"Vector2.h"
-	"Ponto.h"
-
-1681317630 c:\users\audren\desktop\cg\demos\gl_1_canvasglut\src\ponto.h
-	"gl_canvas2d.h"
-	<vector>
-
-1681487715 source:c:\users\stars\desktop\cg\gl_1_canvasglut\src\gl_canvas2d.cpp
-	"gl_canvas2d.h"
-	<GL/glut.h>
-	"Ponto.h"
-	<vector>
-
-1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\gl_canvas2d.h
-	<stdio.h>
-	<stdlib.h>
-	<math.h>
-	<string.h>
-	<GL/glut.h>
-	<GL/freeglut_ext.h>
-	"Vector2.h"
-	"Ponto.h"
-
-1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\include\gl\glut.h
-	"freeglut_std.h"
-
-1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\include\gl\freeglut_std.h
-	<windows.h>
-	<EGL/egl.h>
-	<GLES/gl.h>
-	<GLES2/gl2.h>
-	<OpenGL/gl.h>
-	<OpenGL/glu.h>
-	<GL/gl.h>
-	<GL/glu.h>
-	<stdlib.h>
-
-1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\include\gl\freeglut_ext.h
-	<stdarg.h>
-
-1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\vector2.h
-
-1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\ponto.h
-	"gl_canvas2d.h"
-	<vector>
-
-1681487715 source:c:\users\stars\desktop\cg\gl_1_canvasglut\src\main.cpp
-	<GL/glut.h>
-	<GL/freeglut_ext.h>
-	<math.h>
-	<stdio.h>
-	<stdlib.h>
-	<vector>
-	"gl_canvas2d.h"
-	"Bola.h"
-	"Relogio.h"
-	"botaoManager.h"
-	"painelmanager.h"
-	"figuraManager.h"
-
-1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\bola.h
-	"gl_canvas2d.h"
-
-1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\relogio.h
-	"gl_canvas2d.h"
-
-1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\botaomanager.h
-	<iostream>
-	<vector>
-	<cmath>
-	"gl_canvas2d.h"
-	"figuraManager.h"
-	<functional>
-
-1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\figuramanager.h
-	<iostream>
-	<vector>
-	<cmath>
-	"gl_canvas2d.h"
-	"Vector2.h"
-	"Ponto.h"
-
-1681487715 c:\users\stars\desktop\cg\gl_1_canvasglut\src\painelmanager.h
-	"gl_canvas2d.h"
-	"botaoManager.h"
-	<vector>
-
-1681487715 source:c:\users\stars\desktop\cg\gl_1_canvasglut\src\relogio.cpp
-	"Relogio.h"
-	<math.h>
-	<stdio.h>
-	<stdlib.h>
-
 1681962805 source:c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\gl_canvas2d.cpp
 	"gl_canvas2d.h"
 	<GL/glut.h>
@@ -212,7 +38,7 @@
 	"gl_canvas2d.h"
 	<vector>
 
-1682043690 source:c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\main.cpp
+1682098823 source:c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\main.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	<math.h>
@@ -232,7 +58,7 @@
 1681487715 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\relogio.h
 	"gl_canvas2d.h"
 
-1682042878 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\botaomanager.h
+1682097999 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\botaomanager.h
 	<iostream>
 	<vector>
 	<cmath>
@@ -241,7 +67,7 @@
 	"Color.h"
 	<functional>
 
-1682043742 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\figuramanager.h
+1682100996 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\figuramanager.h
 	<iostream>
 	<vector>
 	<cmath>
@@ -250,6 +76,8 @@
 	<fstream>
 	"Ponto.h"
 	<memory>
+
+1681772465 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\color.h
 
 1682043118 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\painelmanager.h
 	"gl_canvas2d.h"
@@ -261,54 +89,4 @@
 	<math.h>
 	<stdio.h>
 	<stdlib.h>
-
-1681772465 c:\users\stars\downloads\cg\demos\gl_1_canvasglut\src\color.h
-
-1682010452 source:c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\src\gl_canvas2d.cpp
-	"gl_canvas2d.h"
-	<GL/glut.h>
-	"Ponto.h"
-	<vector>
-
-1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\src\gl_canvas2d.h
-	<stdio.h>
-	<stdlib.h>
-	<math.h>
-	<string.h>
-	<GL/glut.h>
-	<GL/freeglut_ext.h>
-	"Vector2.h"
-	"Ponto.h"
-
-1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\include\gl\glut.h
-	"freeglut_std.h"
-
-1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\include\gl\freeglut_std.h
-	<windows.h>
-	<EGL/egl.h>
-	<GLES/gl.h>
-	<GLES2/gl2.h>
-	<OpenGL/gl.h>
-	<OpenGL/glu.h>
-	<GL/gl.h>
-	<GL/glu.h>
-	<stdlib.h>
-
-1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\include\gl\freeglut_ext.h
-	<stdarg.h>
-
-1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\src\vector2.h
-
-1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\src\ponto.h
-	"gl_canvas2d.h"
-	<vector>
-
-1682010452 source:c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\src\relogio.cpp
-	"Relogio.h"
-	<math.h>
-	<stdio.h>
-	<stdlib.h>
-
-1682010452 c:\users\stars\desktop\trabalhofinal\gl_1_canvasglut\src\relogio.h
-	"gl_canvas2d.h"
 

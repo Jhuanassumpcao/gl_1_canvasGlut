@@ -40,13 +40,13 @@ int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da ren
 
 
 int tam_cores = 14;
+int criptografia = 3;
 
 
 static bool isLeftButtonDown = false;
 static bool isRightButtonDown = false;
 typedef void (*ButtonAction)(const Ponto&);
 
-static int botaoPressionado = -1;
 
 //funcao chamada continuamente. Deve-se controlar o que desenhar por meio de variaveis globais
 //Todos os comandos para desenho na canvas devem ser chamados dentro da render().
@@ -82,7 +82,7 @@ void keyboard(int key)
 	     exit(0);
 	  break;
 	  case 19:
-        figuraManager->escreverDados("figuras.txt");
+        figuraManager->escreverDados("figuras.txt", criptografia);
       break;
 
 	  //seta para a esquerda
@@ -131,6 +131,8 @@ void keyboardUp(int key)
 
 void LeftButtonDown(const Ponto& mousePos) {
     figuraPressionada = figuraManager->FiguraClicada(mousePos);
+    //Figura* selelecionada = new Poligono(figuraManager->getFigura(figuraPressionada).getCentro(), figuraManager->getFigura(figuraPressionada).getRaio()  + 10, 4, false);
+
     botaoManager.BotaoClicado(mousePos);
 
     isLeftButtonDown = true;
@@ -174,9 +176,11 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
     }
 
 
+
     if (isLeftButtonDown && figuraPressionada >= 0)
     {
         figuraManager->moveFigura(figuraPressionada, mousePos, state);
+
         for(int i = 7; i <= tam_cores + 7; i++) {
             if(botaoManager.getPressionado(i)) {
                 botaoManager.atualizaCor(21,botaoManager.getR(i), botaoManager.getG(i), botaoManager.getB(i));
@@ -187,6 +191,8 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
 
     }
+
+
     if (isRightButtonDown && figuraPressionada >= 0)
     {
         figuraManager->RotacionarFigura(figuraPressionada , -5.0f);
@@ -277,7 +283,7 @@ int main(void)
 {
 
    figuraManager = new FiguraManager();
-   figuraManager->lerDados("figuras.txt");
+   figuraManager->lerDados("figuras.txt", criptografia);
 
    DrawPainels();
    DrawBotoes();

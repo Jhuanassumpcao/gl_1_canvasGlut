@@ -40,8 +40,6 @@ public:
             ponto.x -= x;
             ponto.y -= y;
         }
-        CV::rect(mouse, mouse + mouse);
-
         //this->centro = ponto;
 
     }
@@ -168,7 +166,6 @@ public:
     }
     void escalar(float escala, Ponto centro) {
         Ponto p1 = pontos[0];
-        printf(" escalaaaaaa %f", escala);
         float novaEscala;
         if((float)escala == (float)-0.1){
             novaEscala = 0.4;
@@ -187,9 +184,6 @@ public:
     void Rotacionar(float angulo, Ponto centro) {
         Ponto p1 = pontos[0];
         Ponto p2 = pontos[1];
-        float dx = p2.x - p1.x;
-        this->centro;
-        float dy = p2.y - p1.y;
         float nova_x1 = centro.x + (p1.x - centro.x) * cos(angulo) - (p1.y - centro.y) * sin(angulo);
         float nova_y1 = centro.y + (p1.x - centro.x) * sin(angulo) + (p1.y - centro.y) * cos(angulo);
         float nova_x2 = centro.x + (p2.x - centro.x) * cos(angulo) - (p2.y - centro.y) * sin(angulo);
@@ -239,7 +233,6 @@ public:
                 CV::polygon(pontos);
             }
         }
-
     }
 
 
@@ -316,13 +309,14 @@ public:
       ativo.erase(ativo.begin()+index);
     }
   }
+  int getTamanho(){
+    return figuras.size();
+  }
 
   int FiguraClicada(Ponto mouse)
   {
     for(unsigned int i = 0; i < figuras.size(); i++){
       if(ativo[i] && figuras[i]->Colidiu(mouse)){
-
-
          figuras.push_back(figuras[i]);
          figuras.erase(figuras.begin() + i);
 
@@ -388,7 +382,8 @@ public:
         return figuras[i]->setSelecionada();
     }
 
-    void escreverDados(const std::string& nomeArquivo) {
+
+    void escreverDados(const std::string& nomeArquivo, int criptografia) {
         std::ofstream arquivo(nomeArquivo);
         if (!arquivo) {
             std::cerr << "Erro ao abrir arquivo" << std::endl;
@@ -398,10 +393,14 @@ public:
             arquivo << figura->getTipo() << " ";
 
             Ponto centro = figura->pegacentro();
-            arquivo << figura->getR() << " " << figura->getG() << " " << figura->getB() << " " << figura->getFill() << " " << figura->getRaio() << " " << centro.x << " " << centro.y << " " << figura->getNum_lados() << std::endl;
+            arquivo << figura->getR() + criptografia << " " << figura->getG() + criptografia << " " << figura->getB() + criptografia << " " << figura->getFill()<< " " << figura->getRaio() + criptografia << " " << centro.x  + criptografia << " " << centro.y  + criptografia << " " << figura->getNum_lados() + criptografia<< std::endl;
         }
     }
-    void lerDados(const std::string& nomeArquivo) {
+    Figura&  getFigura(int indice) {
+        return *figuras[indice];
+    }
+
+    void lerDados(const std::string& nomeArquivo, int criptografia) {
         std::ifstream arquivo(nomeArquivo);
         if (!arquivo) {
             std::cerr << "Erro ao abrir arquivo" << std::endl;
@@ -410,24 +409,23 @@ public:
 
         int tipo;
         while (arquivo >> tipo) {
-            std::vector<Ponto> pontos;
             float x, y;
 
             float r, g, b, raio;
             bool isFill;
             int centroX, centroY, num_lados;
             arquivo >> r >> g >> b >> isFill >> raio >> centroX >> centroY >> num_lados;
-            Ponto centro = Ponto(centroX, centroY);
+            Ponto centro = Ponto(centroX - criptografia, centroY - criptografia);
             if (tipo == 0) { // Linha
                 //Figura* figura = new Linha(ponto, ponto2, isFill);
                 //AddFigura(figura);
                // figura->setVisivel(true);
                // figura->setCor(r,g,b);
             } else if (tipo == 1) { // Poligono
-                Figura* figura = new Poligono(centro, raio, num_lados, isFill);
+                Figura* figura = new Poligono(centro, raio - criptografia, num_lados - criptografia, isFill);
                 AddFigura(figura);
                 figura->setVisivel(true);
-                figura->setCor(r,g,b);
+                figura->setCor(r - criptografia,g - criptografia,b - criptografia);
 
             } else {
                 std::cerr << "Tipo de figura inválido: " << tipo << std::endl;
