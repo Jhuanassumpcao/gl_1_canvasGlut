@@ -40,6 +40,9 @@ public:
             ponto.x -= x;
             ponto.y -= y;
         }
+        CV::rect(mouse, mouse + mouse);
+
+        //this->centro = ponto;
 
     }
 
@@ -120,6 +123,10 @@ public:
         centro.y /= getPontos().size();
         return centro;
   }
+
+
+
+
 
     virtual void Render() = 0;
     virtual bool Colidiu(Ponto mouse) = 0;
